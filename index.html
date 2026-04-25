@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>Magnate</title>
+  <title>Magnate — Business Acquisition Marketplace</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
+    /* ════════════════════════════
+       ORIGINAL CSS — PRESERVED
+    ════════════════════════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -26,7 +29,6 @@
       --warn:       #B45309;
       --neg:        #9B1C1C;
 
-      /* category tints */
       --ecom:    #0A1812;
       --saas:    #0A0F1C;
       --agency:  #180A0A;
@@ -54,15 +56,10 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Scrollbars ── */
     ::-webkit-scrollbar { width: 0; height: 0; }
 
-    /* ── Tabular nums ── */
     .num { font-feature-settings: "tnum" 1; font-variant-numeric: tabular-nums; }
 
-    /* ════════════════════════════
-       TOP BAR  (fixed, 56px)
-    ════════════════════════════ */
     #topbar {
       flex-shrink: 0;
       height: 56px;
@@ -80,12 +77,9 @@
       display: flex;
       align-items: center;
       gap: 9px;
+      text-decoration: none;
     }
-    .logo-mark {
-      width: 28px;
-      height: 28px;
-      flex-shrink: 0;
-    }
+    .logo-mark { width: 28px; height: 28px; flex-shrink: 0; }
     .logo-word {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 15px;
@@ -130,9 +124,6 @@
       font-family: 'Inter', sans-serif;
     }
 
-    /* ════════════════════════════
-       SCROLL CONTAINER
-    ════════════════════════════ */
     #feed-scroll {
       flex: 1;
       overflow-y: auto;
@@ -141,9 +132,6 @@
       overscroll-behavior-y: contain;
     }
 
-    /* ════════════════════════════
-       GREETING
-    ════════════════════════════ */
     .greeting {
       padding: 16px 18px 14px;
       border-bottom: 1px solid var(--border);
@@ -151,172 +139,63 @@
       align-items: center;
       justify-content: space-between;
     }
-    .greeting-left {}
-    .greeting-sup {
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--muted);
-      letter-spacing: 0.04em;
-      margin-bottom: 3px;
-    }
-    .greeting-main {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--txt);
-      line-height: 1.2;
-    }
+    .greeting-sup { font-size: 11px; font-weight: 500; color: var(--muted); letter-spacing: 0.04em; margin-bottom: 3px; }
+    .greeting-main { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 700; color: var(--txt); line-height: 1.2; }
     .greeting-match {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: var(--accent-dim);
-      border: 1px solid #1A3020;
-      border-radius: 20px;
-      padding: 6px 12px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--accent);
-      white-space: nowrap;
-      flex-shrink: 0;
+      display: inline-flex; align-items: center; gap: 5px;
+      background: var(--accent-dim); border: 1px solid #1A3020; border-radius: 20px;
+      padding: 6px 12px; font-size: 12px; font-weight: 600; color: var(--accent);
+      white-space: nowrap; flex-shrink: 0;
     }
-    .match-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--accent);
-      flex-shrink: 0;
-    }
+    .match-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
 
-    /* ════════════════════════════
-       TABS
-    ════════════════════════════ */
     .tabs-row {
-      display: flex;
-      align-items: center;
-      gap: 0;
-      padding: 0 18px;
-      border-bottom: 1px solid var(--border);
-      overflow-x: auto;
+      display: flex; align-items: center; gap: 0;
+      padding: 0 18px; border-bottom: 1px solid var(--border); overflow-x: auto;
     }
     .tabs-row::-webkit-scrollbar { display: none; }
     .tab {
-      flex-shrink: 0;
-      padding: 12px 14px;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--muted);
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
-      transition: color 0.15s, border-color 0.15s;
-      white-space: nowrap;
+      flex-shrink: 0; padding: 12px 14px; font-size: 13px; font-weight: 500;
+      color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent;
+      margin-bottom: -1px; transition: color 0.15s, border-color 0.15s; white-space: nowrap;
     }
     .tab.active { color: var(--txt); border-bottom-color: var(--accent); }
     .tab:active { opacity: 0.7; }
 
-    /* ════════════════════════════
-       FILTER PILLS
-    ════════════════════════════ */
     .filter-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 10px 18px;
-      overflow-x: auto;
-      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 6px;
+      padding: 10px 18px; overflow-x: auto; border-bottom: 1px solid var(--border);
     }
     .filter-row::-webkit-scrollbar { display: none; }
     .pill {
-      flex-shrink: 0;
-      padding: 5px 13px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--muted);
-      background: transparent;
-      border: 1px solid var(--border);
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.15s;
+      flex-shrink: 0; padding: 5px 13px; border-radius: 20px; font-size: 12px;
+      font-weight: 500; color: var(--muted); background: transparent;
+      border: 1px solid var(--border); cursor: pointer; white-space: nowrap; transition: all 0.15s;
     }
-    .pill.active {
-      background: var(--accent-dim);
-      border-color: var(--accent);
-      color: var(--accent);
-    }
+    .pill.active { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
     .pill:active { opacity: 0.7; }
-    .pill-inner {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .pill-live {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--accent);
-    }
-    .pill-count {
-      background: var(--accent);
-      color: #fff;
-      font-size: 9px;
-      font-weight: 700;
-      padding: 1px 5px;
-      border-radius: 8px;
-    }
+    .pill-inner { display: flex; align-items: center; gap: 5px; }
+    .pill-live { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+    .pill-count { background: var(--accent); color: #fff; font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 8px; }
 
-    /* ════════════════════════════
-       DEAL COUNT BAR
-    ════════════════════════════ */
-    .deal-bar {
-      padding: 8px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .deal-bar-left {
-      font-size: 11px;
-      color: var(--muted);
-    }
+    .deal-bar { padding: 8px 18px; display: flex; align-items: center; justify-content: space-between; }
+    .deal-bar-left { font-size: 11px; color: var(--muted); }
     .deal-bar-left strong { color: #8A8A8A; font-weight: 600; }
     .sort-btn {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--muted);
-      background: var(--bg-el);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 5px 10px;
-      cursor: pointer;
+      display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 500;
+      color: var(--muted); background: var(--bg-el); border: 1px solid var(--border);
+      border-radius: 8px; padding: 5px 10px; cursor: pointer;
     }
     .sort-btn:active { opacity: 0.7; }
 
-    /* ════════════════════════════
-       CARD FEED
-    ════════════════════════════ */
-    .card-feed {
-      padding: 4px 16px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+    .card-feed { padding: 4px 16px 16px; display: flex; flex-direction: column; gap: 12px; }
 
-    /* ─── Card shell ─── */
     .card {
-      border-radius: 16px;
-      border: 1px solid #1E1E1E;
-      overflow: hidden;
-      background: var(--bg-card);
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
+      border-radius: 16px; border: 1px solid #1E1E1E; overflow: hidden;
+      background: var(--bg-card); cursor: pointer; -webkit-tap-highlight-color: transparent;
     }
     .card:active { opacity: 0.93; transform: scale(0.99); }
 
-    /* Category backgrounds */
     .card.ecom    { background: var(--ecom); }
     .card.saas    { background: var(--saas); }
     .card.agency  { background: var(--agency); }
@@ -324,18 +203,11 @@
     .card.fba     { background: var(--fba); }
     .card.drop    { background: var(--drop); }
 
-    /* ─── Card visual header ─── */
     .card-visual {
-      height: 130px;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 12px 14px;
+      height: 130px; position: relative; overflow: hidden;
+      display: flex; flex-direction: column; justify-content: space-between; padding: 12px 14px;
     }
 
-    /* Category-specific gradient overlays */
     .card.ecom    .card-visual { background: linear-gradient(135deg, #0E2018 0%, #0A1812 50%, #071209 100%); }
     .card.saas    .card-visual { background: linear-gradient(135deg, #0D1525 0%, #0A0F1C 50%, #060A14 100%); }
     .card.agency  .card-visual { background: linear-gradient(135deg, #200E0E 0%, #180A0A 50%, #100606 100%); }
@@ -343,40 +215,18 @@
     .card.fba     .card-visual { background: linear-gradient(135deg, #141A12 0%, #0F1410 50%, #0A0E0A 100%); }
     .card.drop    .card-visual { background: linear-gradient(135deg, #0E1814 0%, #0A1410 50%, #070E0C 100%); }
 
-    /* Large faint letter watermark */
     .card-visual::before {
-      content: attr(data-letter);
-      position: absolute;
-      right: -8px;
-      bottom: -16px;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 110px;
-      font-weight: 800;
-      line-height: 1;
-      opacity: 0.05;
-      color: #fff;
-      pointer-events: none;
-      user-select: none;
+      content: attr(data-letter); position: absolute; right: -8px; bottom: -16px;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 110px; font-weight: 800;
+      line-height: 1; opacity: 0.05; color: #fff; pointer-events: none; user-select: none;
     }
 
-    /* Top row: tags + heart */
-    .visual-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      position: relative;
-      z-index: 1;
-    }
+    .visual-top { display: flex; align-items: flex-start; justify-content: space-between; position: relative; z-index: 1; }
     .tag-group { display: flex; gap: 5px; flex-wrap: wrap; }
 
     .cat-tag {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 3px 8px;
-      border-radius: 5px;
-      border: 1px solid;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 3px 8px; border-radius: 5px; border: 1px solid;
     }
     .cat-tag.ecom    { color: #2D9A6C; border-color: #1A4030; background: rgba(10,24,18,0.8); }
     .cat-tag.saas    { color: #5B8EF0; border-color: #1A2640; background: rgba(10,15,28,0.8); }
@@ -386,315 +236,918 @@
     .cat-tag.drop    { color: #2D9A6C; border-color: #1A3028; background: rgba(10,20,16,0.8); }
 
     .sec-tag {
-      font-size: 10px;
-      font-weight: 500;
-      color: #5A5A5A;
-      background: rgba(0,0,0,0.4);
-      border: 1px solid rgba(255,255,255,0.05);
-      padding: 3px 7px;
-      border-radius: 5px;
+      font-size: 10px; font-weight: 500; color: #5A5A5A;
+      background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05);
+      padding: 3px 7px; border-radius: 5px;
     }
 
     .heart-btn {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background: rgba(0,0,0,0.4);
-      border: 1px solid rgba(255,255,255,0.08);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #4A4A4A;
-      cursor: pointer;
-      flex-shrink: 0;
+      width: 30px; height: 30px; border-radius: 50%; background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center;
+      justify-content: center; color: #4A4A4A; cursor: pointer; flex-shrink: 0;
       -webkit-tap-highlight-color: transparent;
     }
     .heart-btn.saved { color: #9B1C1C; border-color: rgba(155,28,28,0.3); }
 
-    /* Bottom of visual: biz name */
-    .visual-bottom {
-      position: relative;
-      z-index: 1;
-    }
-    .biz-name {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 18px;
-      font-weight: 800;
-      color: #fff;
-      line-height: 1.2;
-      letter-spacing: -0.01em;
-    }
-    .biz-sub {
-      font-size: 11px;
-      color: rgba(255,255,255,0.4);
-      margin-top: 2px;
-    }
+    .visual-bottom { position: relative; z-index: 1; }
+    .biz-name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 800; color: #fff; line-height: 1.2; letter-spacing: -0.01em; }
+    .biz-sub { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 2px; }
 
-    /* ─── Card body ─── */
-    .card-body {
-      padding: 14px 14px 0;
-    }
+    .card-body { padding: 14px 14px 0; }
 
-    /* Price row */
-    .price-row {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-    .price-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .price-value {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 26px;
-      font-weight: 800;
-      color: var(--txt);
-      line-height: 1;
-      font-feature-settings: "tnum" 1;
-    }
-    .price-multiple {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--muted);
-      background: var(--bg-el);
-      border: 1px solid var(--border-2);
-      border-radius: 5px;
-      padding: 2px 7px;
-    }
+    .price-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 12px; }
+    .price-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .price-value { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 26px; font-weight: 800; color: var(--txt); line-height: 1; font-feature-settings: "tnum" 1; }
+    .price-multiple { font-size: 12px; font-weight: 500; color: var(--muted); background: var(--bg-el); border: 1px solid var(--border-2); border-radius: 5px; padding: 2px 7px; }
 
-    /* Description */
-    .biz-desc {
-      font-size: 13px;
-      line-height: 1.55;
-      color: #7A7A7A;
-      margin-bottom: 12px;
-    }
+    .biz-desc { font-size: 13px; line-height: 1.55; color: #7A7A7A; margin-bottom: 12px; }
 
-    /* Metric boxes */
-    .metrics {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-      margin-bottom: 12px;
-    }
-    .metric-box {
-      background: rgba(0,0,0,0.3);
-      border: 1px solid #1A1A1A;
-      border-radius: 10px;
-      padding: 9px 10px;
-    }
-    .metric-label {
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 4px;
-    }
-    .metric-val {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--txt);
-      font-feature-settings: "tnum" 1;
-    }
+    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 12px; }
+    .metric-box { background: rgba(0,0,0,0.3); border: 1px solid #1A1A1A; border-radius: 10px; padding: 9px 10px; }
+    .metric-label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+    .metric-val { font-size: 14px; font-weight: 700; color: var(--txt); font-feature-settings: "tnum" 1; }
     .metric-val.up { color: var(--accent); }
     .metric-val.warn { color: var(--warn); }
 
-    /* Trend bar */
-    .trend-bar {
-      margin-bottom: 12px;
-    }
-    .trend-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 5px;
-    }
+    .trend-bar { margin-bottom: 12px; }
+    .trend-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
     .trend-label { font-size: 10px; color: var(--muted); }
     .trend-pct { font-size: 10px; color: var(--accent); font-weight: 600; }
-    .trend-track {
-      height: 3px;
-      background: var(--bg-el);
-      border-radius: 2px;
-      overflow: hidden;
-    }
+    .trend-track { height: 3px; background: var(--bg-el); border-radius: 2px; overflow: hidden; }
     .trend-fill { height: 100%; background: var(--accent); border-radius: 2px; }
     .trend-fill.warn { background: var(--warn); }
 
-    /* ─── Card footer ─── */
-    .card-footer {
-      padding: 10px 14px 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      border-top: 1px solid #141414;
-    }
-    .view-info {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 11px;
-      color: #4A4A4A;
-    }
-    .view-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--accent);
-      flex-shrink: 0;
-    }
+    .card-footer { padding: 10px 14px 14px; display: flex; align-items: center; gap: 8px; border-top: 1px solid #141414; }
+    .view-info { display: flex; align-items: center; gap: 4px; font-size: 11px; color: #4A4A4A; }
+    .view-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
     .listed-txt { font-size: 11px; color: #3A3A3A; }
     .footer-spacer { flex: 1; }
 
-    .qual-tag {
-      font-size: 10px;
-      font-weight: 600;
-      padding: 3px 8px;
-      border-radius: 5px;
-    }
+    .qual-tag { font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 5px; }
     .qual-tag.verified  { color: var(--accent); background: var(--accent-dim); border: 1px solid #1A3020; }
     .qual-tag.motivated { color: var(--warn);   background: #160A04;           border: 1px solid #2A1808; }
     .qual-tag.sba       { color: #5B8EF0;        background: #080C18;           border: 1px solid #1A2440; }
 
     .cta-btn {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      background: var(--accent);
-      color: #fff;
-      font-size: 12px;
-      font-weight: 700;
-      padding: 7px 13px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      flex-shrink: 0;
-      -webkit-tap-highlight-color: transparent;
+      display: flex; align-items: center; gap: 5px; background: var(--accent);
+      color: #fff; font-size: 12px; font-weight: 700; padding: 7px 13px;
+      border-radius: 8px; cursor: pointer; font-family: 'Inter', sans-serif;
+      flex-shrink: 0; -webkit-tap-highlight-color: transparent;
     }
     .cta-btn:active { opacity: 0.85; }
 
-    /* ─── Load more ─── */
-    .load-more {
-      margin: 4px 0 8px;
-      display: flex;
-      justify-content: center;
-    }
+    .load-more { margin: 4px 0 8px; display: flex; justify-content: center; }
     .load-more-btn {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 11px 28px;
-      border-radius: 10px;
-      border: 1px solid var(--accent);
-      background: transparent;
-      color: var(--accent);
-      font-size: 13px;
-      font-weight: 600;
-      font-family: 'Inter', sans-serif;
-      cursor: pointer;
+      display: flex; align-items: center; gap: 6px; padding: 11px 28px;
+      border-radius: 10px; border: 1px solid var(--accent); background: transparent;
+      color: var(--accent); font-size: 13px; font-weight: 600; font-family: 'Inter', sans-serif; cursor: pointer;
     }
     .load-more-btn:active { background: var(--accent-dim); }
 
-    /* ════════════════════════════
-       BOTTOM TAB BAR  (64px fixed)
-    ════════════════════════════ */
     #bottom-nav {
-      flex-shrink: 0;
-      height: 64px;
-      background: var(--bg);
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      padding-bottom: env(safe-area-inset-bottom, 0px);
+      flex-shrink: 0; height: 64px; background: var(--bg); border-top: 1px solid var(--border);
+      display: flex; align-items: center; padding-bottom: env(safe-area-inset-bottom, 0px);
     }
     .nav-tab {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      cursor: pointer;
-      color: var(--muted-2);
-      font-size: 10px;
-      font-weight: 500;
-      position: relative;
-      -webkit-tap-highlight-color: transparent;
-      padding-top: 4px;
+      flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 4px; cursor: pointer; color: var(--muted-2); font-size: 10px; font-weight: 500;
+      position: relative; -webkit-tap-highlight-color: transparent; padding-top: 4px;
     }
     .nav-tab.active { color: var(--accent); }
     .nav-tab svg { width: 22px; height: 22px; }
     .nav-badge {
-      position: absolute;
-      top: 2px;
-      right: calc(50% - 18px);
-      background: var(--accent);
-      color: #fff;
-      font-size: 8px;
-      font-weight: 700;
-      min-width: 14px;
-      height: 14px;
-      border-radius: 7px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 3px;
-      font-family: 'Inter', sans-serif;
+      position: absolute; top: 2px; right: calc(50% - 18px); background: var(--accent);
+      color: #fff; font-size: 8px; font-weight: 700; min-width: 14px; height: 14px;
+      border-radius: 7px; display: flex; align-items: center; justify-content: center;
+      padding: 0 3px; font-family: 'Inter', sans-serif;
     }
 
-    /* ════════════════════════════
-       SEARCH OVERLAY
-    ════════════════════════════ */
     #search-overlay {
-      display: none;
-      position: absolute;
-      inset: 0;
-      background: var(--bg);
-      z-index: 100;
-      flex-direction: column;
+      display: none; position: absolute; inset: 0; background: var(--bg);
+      z-index: 100; flex-direction: column;
     }
     #search-overlay.open { display: flex; }
     .search-bar-wrap {
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      padding: 12px 16px; display: flex; align-items: center; gap: 10px;
       border-bottom: 1px solid var(--border);
     }
-    .search-input-wrap {
-      flex: 1;
-      position: relative;
-    }
+    .search-input-wrap { flex: 1; position: relative; }
     .search-input-wrap input {
-      width: 100%;
-      background: var(--bg-el);
-      border: 1px solid var(--border-2);
-      border-radius: 10px;
-      color: var(--txt);
-      font-size: 14px;
-      padding: 10px 12px 10px 36px;
-      outline: none;
-      font-family: 'Inter', sans-serif;
+      width: 100%; background: var(--bg-el); border: 1px solid var(--border-2);
+      border-radius: 10px; color: var(--txt); font-size: 14px;
+      padding: 10px 12px 10px 36px; outline: none; font-family: 'Inter', sans-serif;
     }
     .search-input-wrap input:focus { border-color: var(--accent); }
-    .search-icon-inside {
+    .search-icon-inside { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+    .search-cancel { font-size: 14px; font-weight: 500; color: var(--accent); cursor: pointer; white-space: nowrap; }
+
+    /* ════════════════════════════
+       LIGHT MODE OVERRIDES
+    ════════════════════════════ */
+    [data-theme="light"] {
+      --bg:         #F8F7F4;
+      --bg-card:    #FFFFFF;
+      --bg-el:      #EFEFEC;
+      --bg-hi:      #E6E6E3;
+      --txt:        #0E0E0F;
+      --txt-2:      #3A3A3A;
+      --muted:      #6B7280;
+      --muted-2:    #9CA3AF;
+      --border:     #E2E2DF;
+      --border-2:   #D0D0CD;
+      --accent:     #1F7A5C;
+      --accent-dim: #E8F5F0;
+      --warn:       #B45309;
+      --neg:        #9B1C1C;
+      --ecom:    #F0FAF5;
+      --saas:    #EEF2FF;
+      --agency:  #FFF0F0;
+      --content: #F5F0FF;
+      --fba:     #F0F5F0;
+      --drop:    #ECFDF5;
+    }
+    html[data-theme="light"] { background: #F8F7F4; }
+    [data-theme="light"] body { background: var(--bg); }
+    [data-theme="light"] .metric-box { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.08); }
+    [data-theme="light"] .card-footer { border-top-color: var(--border); }
+    [data-theme="light"] .trend-track { background: rgba(0,0,0,0.08); }
+    [data-theme="light"] .price-value { color: #0E0E0F; }
+    [data-theme="light"] .price-multiple { background: rgba(0,0,0,0.06); border-color: var(--border); }
+    [data-theme="light"] .biz-desc { color: #555; }
+    [data-theme="light"] .sort-btn { background: var(--bg-el); border-color: var(--border); }
+    [data-theme="light"] #topbar { background: var(--bg); border-bottom-color: var(--border); }
+    [data-theme="light"] #bottom-nav { background: var(--bg); border-top-color: var(--border); }
+    [data-theme="light"] .icon-btn { background: var(--bg-el); border-color: var(--border); }
+    [data-theme="light"] .qual-tag.motivated { background: #FFF8F0; border-color: #F0D0B0; }
+    [data-theme="light"] .qual-tag.sba { background: #EEF2FF; border-color: #C0CCEE; }
+    [data-theme="light"] .sec-tag { color: #9CA3AF; background: rgba(0,0,0,0.06); border-color: rgba(0,0,0,0.08); }
+
+    /* ════════════════════════════
+       DESKTOP RESPONSIVE
+    ════════════════════════════ */
+    @media (min-width: 769px) {
+      body {
+        max-width: 100%;
+        overflow-y: auto;
+        height: auto;
+        min-height: 100vh;
+      }
+      #feed-scroll {
+        overflow: visible;
+        flex: none;
+      }
+      #bottom-nav { display: none; }
+      #search-overlay { position: fixed; }
+      #topbar {
+        max-width: 100%;
+        padding: 0 40px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .topbar-mobile-icons { display: none; }
+      .topbar-center-nav { display: flex !important; }
+      .topbar-desktop-cta { display: flex !important; }
+    }
+
+    /* ════════════════════════════
+       TOPBAR DESKTOP ADDITIONS
+    ════════════════════════════ */
+    .topbar-center-nav {
+      display: none;
+      align-items: center;
+      gap: 28px;
       position: absolute;
-      left: 11px;
-      top: 50%;
-      transform: translateY(-50%);
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .topbar-center-nav a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .topbar-center-nav a:hover { color: var(--txt); }
+    .topbar-desktop-cta {
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-signin-desk {
+      background: transparent;
+      border: 1px solid var(--border-2);
+      color: var(--txt);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 7px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .btn-signin-desk:hover { border-color: var(--muted); background: var(--bg-el); }
+    .btn-access-desk {
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 7px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: opacity 0.15s;
+      white-space: nowrap;
+    }
+    .btn-access-desk:hover { opacity: 0.88; }
+    .theme-toggle-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--bg-el);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+    .theme-toggle-btn:hover { color: var(--txt); }
+
+    /* ════════════════════════════
+       SECTION SHARED STYLES
+    ════════════════════════════ */
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+    @media (min-width: 769px) {
+      .section-inner { padding: 0 40px; }
+    }
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--txt);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+    }
+    @media (min-width: 769px) { .section-title { font-size: 32px; } }
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+    @media (min-width: 769px) { .section-subtitle { font-size: 16px; } }
+
+    /* ════════════════════════════
+       WAITLIST HERO
+    ════════════════════════════ */
+    .waitlist-hero {
+      padding: 40px 18px 36px;
+      border-bottom: 1px solid var(--border);
+    }
+    @media (min-width: 769px) {
+      .waitlist-hero {
+        padding: 80px 40px 72px;
+        max-width: 860px;
+        margin: 0 auto;
+        text-align: center;
+      }
+    }
+    .early-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(31,122,92,0.35);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 22px;
+    }
+    .early-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      animation: pulse-dot 2s infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.75); }
+    }
+    .hero-headline {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 34px;
+      font-weight: 800;
+      color: var(--txt);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    @media (min-width: 769px) { .hero-headline { font-size: 56px; } }
+    .hero-sub {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 10px;
+    }
+    @media (min-width: 769px) { .hero-sub { font-size: 18px; max-width: 580px; margin-left: auto; margin-right: auto; } }
+    .hero-offer {
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 28px;
+    }
+    @media (min-width: 769px) { .hero-offer { font-size: 13px; margin-bottom: 36px; } }
+    .btn-hero-primary {
+      display: block;
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      padding: 18px 24px;
+      border-radius: 14px;
+      text-align: center;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      margin-bottom: 12px;
+      transition: opacity 0.15s;
+      line-height: 1;
+    }
+    .btn-hero-primary:hover { opacity: 0.88; }
+    @media (min-width: 769px) {
+      .btn-hero-primary { max-width: 480px; margin-left: auto; margin-right: auto; }
+    }
+    .hero-btns-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    @media (min-width: 769px) {
+      .hero-btns-row { max-width: 480px; margin-left: auto; margin-right: auto; margin-bottom: 28px; }
+    }
+    .btn-hero-outline {
+      display: block;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      background: transparent;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 13px 16px;
+      border-radius: 12px;
+      text-align: center;
+      text-decoration: none;
+      transition: background 0.15s;
+      cursor: pointer;
+    }
+    .btn-hero-outline:hover { background: var(--accent-dim); }
+    .waitlist-counter {
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+    }
+    .waitlist-counter strong { color: var(--txt); font-weight: 700; }
+
+    /* ════════════════════════════
+       STATS BAR
+    ════════════════════════════ */
+    .stats-bar {
+      border-bottom: 1px solid var(--border);
+      padding: 0 18px;
+    }
+    .stats-bar-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+    }
+    @media (min-width: 769px) {
+      .stats-bar { padding: 0 40px; }
+      .stats-bar-inner { grid-template-columns: repeat(4, 1fr); }
+    }
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 20px 12px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    @media (min-width: 769px) {
+      .stat-item { border-bottom: none; padding: 28px 20px; }
+    }
+    .stat-item:nth-child(2n) { border-right: none; }
+    @media (min-width: 769px) {
+      .stat-item:nth-child(2n) { border-right: 1px solid var(--border); }
+      .stat-item:last-child { border-right: none; }
+    }
+    .stat-main {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--txt);
+      margin-bottom: 5px;
+      line-height: 1;
+    }
+    .stat-sub { font-size: 11px; color: var(--muted); font-weight: 500; }
+
+    /* ════════════════════════════
+       LOCKED DEALS SECTION
+    ════════════════════════════ */
+    .locked-deals-section {
+      padding: 40px 0 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    .locked-deals-section .section-inner {
+      padding-bottom: 0;
+    }
+    .locked-cards-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 0 18px;
+    }
+    @media (min-width: 769px) {
+      .locked-cards-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        padding: 0 40px;
+      }
+    }
+    .locked-card-wrap {
+      position: relative;
+      border-radius: 16px;
+      cursor: pointer;
+    }
+    .locked-card-wrap .card {
+      filter: blur(5px);
+      pointer-events: none;
+      user-select: none;
+    }
+    .locked-card-wrap .card:active { transform: none; opacity: 1; }
+    .lock-overlay {
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.28);
+      gap: 10px;
+      padding: 24px;
+      text-align: center;
+    }
+    [data-theme="light"] .lock-overlay { background: rgba(255,255,255,0.35); }
+    .lock-icon { color: #fff; opacity: 0.9; }
+    [data-theme="light"] .lock-icon { color: #0E0E0F; }
+    .lock-overlay-text {
+      font-size: 12px;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.5;
+      max-width: 160px;
+    }
+    [data-theme="light"] .lock-overlay-text { color: rgba(0,0,0,0.7); }
+    .lock-access-btn {
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 18px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .lock-access-btn:hover { opacity: 0.88; }
+
+    /* ════════════════════════════
+       APP PREVIEW SECTION
+    ════════════════════════════ */
+    .app-preview-section {
+      padding: 48px 0 48px;
+      border-bottom: 1px solid var(--border);
+    }
+    .phones-container {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .phone-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .phone-frame {
+      width: 170px;
+      height: 320px;
+      border-radius: 28px;
+      border: 2px solid #1A1A1A;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      flex-shrink: 0;
+    }
+    @media (min-width: 480px) {
+      .phone-frame { width: 200px; height: 380px; }
+    }
+    @media (min-width: 769px) {
+      .phone-frame { width: 260px; height: 480px; border-radius: 36px; }
+    }
+    .phone-frame.phone-dark { background: #0A0A0A; }
+    .phone-frame.phone-light { background: #F8F7F4; border-color: #D5D5D3; }
+    .phone-caption {
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+      font-weight: 500;
+    }
+    .phone-inner {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .phone-notch-bar {
+      padding: 6px 0 3px;
+      display: flex;
+      justify-content: center;
+    }
+    .phone-notch {
+      width: 56px;
+      height: 6px;
+      background: #1A1A1A;
+      border-radius: 0 0 6px 6px;
+    }
+    .phone-frame.phone-light .phone-notch { background: #D5D5D3; }
+    .mini-ph-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 10px 6px;
+    }
+    .mini-ph-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      color: #F0F0F0;
+    }
+    .phone-frame.phone-light .mini-ph-logo { color: #0E0E0F; }
+    .mini-ph-dots {
+      display: flex;
+      gap: 3px;
+    }
+    .mini-ph-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 4px;
+      background: #1A1A1A;
+    }
+    .phone-frame.phone-light .mini-ph-dot { background: #E2E2DF; }
+    .mini-ph-greeting {
+      font-size: 8px;
+      color: #5A5A5A;
+      padding: 0 10px 5px;
+    }
+    .phone-frame.phone-light .mini-ph-greeting { color: #9CA3AF; }
+    .mini-ph-pills {
+      display: flex;
+      gap: 5px;
+      padding: 0 10px 8px;
+    }
+    .mini-ph-pill {
+      font-size: 7px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 20px;
+      border: 1px solid #1A1A1A;
+      color: #5A5A5A;
+    }
+    .mini-ph-pill.active {
+      background: #0D1F18;
+      border-color: #1F7A5C;
+      color: #1F7A5C;
+    }
+    .phone-frame.phone-light .mini-ph-pill { border-color: #E2E2DF; color: #9CA3AF; }
+    .phone-frame.phone-light .mini-ph-pill.active { background: #E8F5F0; border-color: #1F7A5C; color: #1F7A5C; }
+    .mini-ph-cards {
+      padding: 0 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      flex: 1;
+      overflow: hidden;
+    }
+    .mini-ph-card {
+      border-radius: 9px;
+      border: 1px solid #1E1E1E;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .phone-frame.phone-light .mini-ph-card { border-color: #E2E2DF; }
+    .mini-ph-visual {
+      height: 46px;
+      padding: 5px 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .mini-ph-card.ecom .mini-ph-visual { background: linear-gradient(135deg, #0E2018, #0A1812); }
+    .mini-ph-card.saas .mini-ph-visual { background: linear-gradient(135deg, #0D1525, #0A0F1C); }
+    .mini-ph-cat {
+      font-size: 6px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 2px 5px;
+      border-radius: 3px;
+      border: 1px solid;
+      width: fit-content;
+    }
+    .ecom .mini-ph-cat { color: #2D9A6C; border-color: #1A4030; background: rgba(10,24,18,0.8); }
+    .saas .mini-ph-cat { color: #5B8EF0; border-color: #1A2640; background: rgba(10,15,28,0.8); }
+    .mini-ph-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 9px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .mini-ph-body {
+      padding: 5px 8px 6px;
+      background: inherit;
+    }
+    .phone-frame.phone-light .mini-ph-card.ecom .mini-ph-body { background: #F0FAF5; }
+    .phone-frame.phone-light .mini-ph-card.saas .mini-ph-body { background: #EEF2FF; }
+    .mini-ph-price {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 800;
+      color: #F0F0F0;
+      margin-bottom: 4px;
+    }
+    .phone-frame.phone-light .mini-ph-price { color: #0E0E0F; }
+    .mini-ph-metrics {
+      display: flex;
+      gap: 4px;
+    }
+    .mini-ph-metric {
+      background: rgba(0,0,0,0.3);
+      border-radius: 4px;
+      padding: 3px 5px;
+      border: 1px solid #1A1A1A;
+    }
+    .phone-frame.phone-light .mini-ph-metric { background: rgba(0,0,0,0.05); border-color: #E2E2DF; }
+    .mini-ph-mlabel {
+      font-size: 5px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      color: #6B7280;
+      text-transform: uppercase;
+    }
+    .mini-ph-mval {
+      font-size: 8px;
+      font-weight: 700;
+      color: #F0F0F0;
+    }
+    .phone-frame.phone-light .mini-ph-mval { color: #0E0E0F; }
+
+    /* ════════════════════════════
+       HOW IT WORKS
+    ════════════════════════════ */
+    .hiw-section {
+      padding: 48px 0 48px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hiw-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    @media (min-width: 769px) {
+      .hiw-grid { grid-template-columns: 1fr 1fr; gap: 60px; }
+    }
+    .hiw-role-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .hiw-steps { display: flex; flex-direction: column; gap: 20px; }
+    .hiw-step { display: flex; gap: 16px; align-items: flex-start; }
+    .hiw-step-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid rgba(31,122,92,0.3);
+      border-radius: 8px;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .hiw-step-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--txt);
+      margin-bottom: 5px;
+    }
+    .hiw-step-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .hiw-cta {
+      text-align: center;
+      margin-top: 44px;
+      padding-top: 36px;
+      border-top: 1px solid var(--border);
+    }
+    .hiw-cta-link {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 16px 44px;
+      border-radius: 14px;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .hiw-cta-link:hover { opacity: 0.88; }
+
+    /* ════════════════════════════
+       FOOTER
+    ════════════════════════════ */
+    .site-footer {
+      padding: 40px 0 32px;
+      border-top: 1px solid var(--border);
+    }
+    .footer-top {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      margin-bottom: 32px;
+    }
+    @media (min-width: 769px) {
+      .footer-top { flex-direction: row; justify-content: space-between; align-items: flex-start; }
+    }
+    .footer-brand-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      color: var(--txt);
+      margin-bottom: 8px;
+    }
+    .footer-brand-tag { font-size: 13px; color: var(--muted); line-height: 1.5; max-width: 220px; }
+    .footer-links {
+      display: flex;
+      gap: 40px;
+    }
+    .footer-col { display: flex; flex-direction: column; gap: 10px; }
+    .footer-col-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+    .footer-col a {
+      font-size: 13px;
+      color: var(--txt-2);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .footer-col a:hover { color: var(--txt); }
+    .footer-bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
       color: var(--muted);
     }
-    .search-cancel {
+    @media (min-width: 769px) {
+      .footer-bottom { flex-direction: row; justify-content: space-between; }
+    }
+
+    /* ════════════════════════════
+       MODALS
+    ════════════════════════════ */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 200;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-sheet {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px 20px 0 0;
+      padding: 28px 20px calc(36px + env(safe-area-inset-bottom, 0px));
+      width: 100%;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    @media (min-width: 769px) {
+      .modal-overlay { align-items: center; }
+      .modal-sheet { border-radius: 20px; padding: 40px; max-width: 440px; }
+    }
+    .modal-handle {
+      width: 36px;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--border-2);
+      margin: 0 auto -4px;
+    }
+    @media (min-width: 769px) { .modal-handle { display: none; } }
+    .modal-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--txt);
+      line-height: 1.2;
+    }
+    .modal-body { font-size: 14px; color: var(--muted); line-height: 1.65; }
+    .btn-modal-outline {
+      display: block;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      background: transparent;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 14px 20px;
+      border-radius: 12px;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-modal-outline:hover { background: var(--accent-dim); }
+    .btn-modal-dismiss {
+      background: none;
+      border: none;
+      color: var(--muted);
       font-size: 14px;
       font-weight: 500;
-      color: var(--accent);
+      font-family: 'Inter', sans-serif;
       cursor: pointer;
-      white-space: nowrap;
+      padding: 6px 0;
+      text-align: center;
+      align-self: center;
+      transition: color 0.15s;
+    }
+    .btn-modal-dismiss:hover { color: var(--txt); }
+
+    /* Mobile bottom-nav scroll offset for locked deals */
+    @media (max-width: 768px) {
+      .locked-deals-section, .app-preview-section, .hiw-section, .site-footer {
+        padding-bottom: 40px;
+      }
     }
   </style>
 </head>
@@ -704,8 +1157,7 @@
        TOP BAR
   ════════════════════════════ -->
   <div id="topbar">
-    <div class="logo">
-      <!-- Geometric M mark -->
+    <a href="index.html" class="logo">
       <svg class="logo-mark" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="0" y="0" width="12" height="12" rx="3.5" fill="#1F7A5C"/>
         <rect x="16" y="0" width="12" height="12" rx="3.5" fill="#1F7A5C"/>
@@ -714,509 +1166,549 @@
         <path d="M3.5 9L8 3.5L14 8.5L20 3.5L24.5 9" stroke="#0A0A0A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
       </svg>
       <span class="logo-word">MAGNATE</span>
-    </div>
-    <div class="topbar-right">
+    </a>
+
+    <!-- Desktop center nav -->
+    <nav class="topbar-center-nav">
+      <a href="how-it-works.html">How It Works</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="buyer-form.html">Browse Deals</a>
+      <a href="seller-form.html">List a Business</a>
+    </nav>
+
+    <!-- Mobile icons -->
+    <div class="topbar-right topbar-mobile-icons">
+      <div class="icon-btn theme-toggle-btn" id="theme-toggle" title="Toggle theme">
+        <svg id="theme-icon-moon" width="16" height="16" viewBox="0 0 20 20" fill="none">
+          <path d="M17.5 10.9A7.5 7.5 0 019.1 2.5a7.5 7.5 0 100 15 7.5 7.5 0 008.4-6.6z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+        <svg id="theme-icon-sun" width="16" height="16" viewBox="0 0 20 20" fill="none" style="display:none;">
+          <circle cx="10" cy="10" r="4" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.2 4.2l1.4 1.4M14.4 14.4l1.4 1.4M4.2 15.8l1.4-1.4M14.4 5.6l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </div>
       <div class="icon-btn" id="search-btn">
         <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.8"/><path d="M14 14L18 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
       </div>
-      <div class="icon-btn">
-        <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M10 2.5C7 2.5 4.5 5 4.5 8.5V13L2.5 15.5H17.5L15.5 13V8.5C15.5 5 13 2.5 10 2.5Z" stroke="currentColor" stroke-width="1.6"/><path d="M8 17C8.4 17.9 9.1 18.5 10 18.5C10.9 18.5 11.6 17.9 12 17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        <span class="icon-badge">2</span>
+    </div>
+
+    <!-- Desktop right CTA -->
+    <div class="topbar-desktop-cta">
+      <div class="icon-btn theme-toggle-btn" id="theme-toggle-desk" title="Toggle theme">
+        <svg id="theme-icon-moon-d" width="16" height="16" viewBox="0 0 20 20" fill="none">
+          <path d="M17.5 10.9A7.5 7.5 0 019.1 2.5a7.5 7.5 0 100 15 7.5 7.5 0 008.4-6.6z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+        <svg id="theme-icon-sun-d" width="16" height="16" viewBox="0 0 20 20" fill="none" style="display:none;">
+          <circle cx="10" cy="10" r="4" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.2 4.2l1.4 1.4M14.4 14.4l1.4 1.4M4.2 15.8l1.4-1.4M14.4 5.6l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
       </div>
-      <div style="width:30px; height:30px; border-radius:50%; background:#1A1A1A; border:1px solid #222; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#F0F0F0; cursor:pointer; flex-shrink:0;">JR</div>
+      <button class="btn-signin-desk" onclick="openSigninModal()">Sign In</button>
+      <a href="buyer-form.html" class="btn-access-desk">Get Early Access</a>
     </div>
   </div>
 
   <!-- ════════════════════════════
-       SCROLLABLE FEED
+       SCROLLABLE CONTENT
   ════════════════════════════ -->
   <div id="feed-scroll">
 
-    <!-- Greeting -->
-    <div class="greeting">
-      <div class="greeting-left">
-        <div class="greeting-sup">Good evening, James</div>
-        <div class="greeting-main">Your deal feed</div>
+    <!-- ─── HERO WAITLIST ─── -->
+    <div class="waitlist-hero">
+      <div class="early-badge">
+        <span class="early-dot"></span>
+        EARLY ACCESS
       </div>
-      <div class="greeting-match">
-        <span class="match-dot"></span>
-        4 new matches
+      <h1 class="hero-headline">Own What's Already Working</h1>
+      <p class="hero-sub">Magnate is launching on the App Store soon. Join the waitlist now and get your first 3 months completely free.</p>
+      <p class="hero-offer">Sign up now — get 3 months free when we launch on the App Store</p>
+      <a href="buyer-form.html" class="btn-hero-primary">Join the Waitlist — 3 Months Free</a>
+      <div class="hero-btns-row">
+        <a href="buyer-form.html" class="btn-hero-outline">Browse Businesses</a>
+        <a href="seller-form.html" class="btn-hero-outline">List My Business</a>
       </div>
-    </div>
-
-    <!-- Tabs -->
-    <div class="tabs-row">
-      <div class="tab active">For You</div>
-      <div class="tab">All Deals</div>
-      <div class="tab">Following</div>
-      <div class="tab">Closing Soon</div>
-    </div>
-
-    <!-- Filter pills -->
-    <div class="filter-row">
-      <div class="pill active">
-        <div class="pill-inner">
-          <span class="pill-live"></span>
-          All
-          <span class="pill-count">214</span>
-        </div>
-      </div>
-      <div class="pill">E-commerce</div>
-      <div class="pill">SaaS</div>
-      <div class="pill">Agency</div>
-      <div class="pill">Amazon FBA</div>
-      <div class="pill">Dropshipping</div>
-      <div class="pill">Content</div>
-    </div>
-
-    <!-- Deal count bar -->
-    <div class="deal-bar">
-      <span class="deal-bar-left"><strong>214</strong> businesses listed</span>
-      <div class="sort-btn">
-        <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M2 4H14M4 8H12M6 12H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        Best Match
+      <div class="waitlist-counter">
+        <strong id="waitlist-count">—</strong> founders already on the waitlist
       </div>
     </div>
 
-    <!-- ═══ CARD FEED ═══ -->
-    <div class="card-feed">
-
-      <!-- CARD 1: Alpine Outfitters — E-commerce -->
-      <div class="card ecom">
-        <div class="card-visual" data-letter="A">
-          <div class="visual-top">
-            <div class="tag-group">
-              <span class="cat-tag ecom">E-Commerce</span>
-              <span class="sec-tag">DTC Brand</span>
-            </div>
-            <button class="heart-btn" onclick="toggleHeart(this,event)">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 13C8 13 1.5 9 1.5 5.5C1.5 3.5 3 2 5 2C6.2 2 7.3 2.7 8 3.7C8.7 2.7 9.8 2 11 2C13 2 14.5 3.5 14.5 5.5C14.5 9 8 13 8 13Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-            </button>
-          </div>
-          <div class="visual-bottom">
-            <div class="biz-name">Alpine Outfitters Co.</div>
-            <div class="biz-sub">4 years operating · Colorado, USA</div>
-          </div>
+    <!-- ─── STATS BAR ─── -->
+    <div class="stats-bar">
+      <div class="stats-bar-inner">
+        <div class="stat-item">
+          <div class="stat-main">Free</div>
+          <div class="stat-sub">To Join</div>
         </div>
-        <div class="card-body">
-          <div class="price-row">
-            <span class="price-label">Asking</span>
-            <span class="price-value num">$348,000</span>
-            <span class="price-multiple">3.1× SDE</span>
-          </div>
-          <div class="biz-desc">Premium outdoor lifestyle brand, DTC model, strong repeat purchase rate. Profitable every year with low CAC and established supplier relationships.</div>
-          <div class="metrics">
-            <div class="metric-box">
-              <div class="metric-label">Monthly Rev</div>
-              <div class="metric-val num">$38.4K</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-label">Net Margin</div>
-              <div class="metric-val up num">31%</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-label">Yrs Running</div>
-              <div class="metric-val num">4</div>
-            </div>
-          </div>
-          <div class="trend-bar">
-            <div class="trend-header">
-              <span class="trend-label">Revenue trend (12 months)</span>
-              <span class="trend-pct">+18%</span>
-            </div>
-            <div class="trend-track"><div class="trend-fill" style="width:72%;"></div></div>
-          </div>
+        <div class="stat-item">
+          <div class="stat-main">3 Months</div>
+          <div class="stat-sub">Free at Launch</div>
         </div>
-        <div class="card-footer">
-          <span class="view-dot"></span>
-          <span class="view-info">7 viewing now</span>
-          <span class="listed-txt">· 3 days ago</span>
-          <span class="footer-spacer"></span>
-          <span class="qual-tag verified">Verified</span>
-          <div class="cta-btn">View <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6H10M7 3L10 6L7 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="stat-item">
+          <div class="stat-main">App Store</div>
+          <div class="stat-sub">Coming Soon</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-main">AI Powered</div>
+          <div class="stat-sub">Matching</div>
         </div>
       </div>
+    </div>
 
-      <!-- CARD 2: InvoiceFlow — SaaS -->
-      <div class="card saas">
-        <div class="card-visual" data-letter="I">
-          <div class="visual-top">
-            <div class="tag-group">
-              <span class="cat-tag saas">SaaS</span>
-              <span class="sec-tag">B2B · Freemium</span>
-            </div>
-            <button class="heart-btn saved" onclick="toggleHeart(this,event)">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 13C8 13 1.5 9 1.5 5.5C1.5 3.5 3 2 5 2C6.2 2 7.3 2.7 8 3.7C8.7 2.7 9.8 2 11 2C13 2 14.5 3.5 14.5 5.5C14.5 9 8 13 8 13Z"/></svg>
-            </button>
-          </div>
-          <div class="visual-bottom">
-            <div class="biz-name">InvoiceFlow SaaS</div>
-            <div class="biz-sub">820 active subscribers · Fully automated</div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="price-row">
-            <span class="price-label">Asking</span>
-            <span class="price-value num">$187,000</span>
-            <span class="price-multiple">2.8× ARR</span>
-          </div>
-          <div class="biz-desc">Automated invoicing platform for freelancers. 94% annual retention, zero churn last quarter. Owner-absent — fully automated ops and support.</div>
-          <div class="metrics">
-            <div class="metric-box">
-              <div class="metric-label">MRR</div>
-              <div class="metric-val num">$5,580</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-label">Churn</div>
-              <div class="metric-val up num">0.6%</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-label">LTV/CAC</div>
-              <div class="metric-val num">14.2×</div>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="view-dot"></span>
-          <span class="view-info">12 viewing now</span>
-          <span class="listed-txt">· 1 day ago</span>
-          <span class="footer-spacer"></span>
-          <span class="qual-tag sba">SBA Eligible</span>
-          <div class="cta-btn">View <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6H10M7 3L10 6L7 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        </div>
+    <!-- ─── LOCKED DEALS ─── -->
+    <div class="locked-deals-section">
+      <div class="section-inner" style="padding-bottom: 28px;">
+        <div class="section-label">LIVE LISTINGS</div>
+        <div class="section-title">Deals Waiting for You</div>
+        <div class="section-subtitle">Join the waitlist to unlock access to every listing at launch</div>
       </div>
 
-      <!-- CARD 3: Meridian Paid Media — Agency -->
-      <div class="card agency">
-        <div class="card-visual" data-letter="M">
-          <div class="visual-top">
-            <div class="tag-group">
-              <span class="cat-tag agency">Agency</span>
-              <span class="sec-tag">Performance Media</span>
+      <div class="locked-cards-grid">
+
+        <!-- LOCKED CARD 1: Alpine Outfitters — E-commerce -->
+        <div class="locked-card-wrap" onclick="openLockModal()">
+          <div class="card ecom">
+            <div class="card-visual" data-letter="A">
+              <div class="visual-top">
+                <div class="tag-group">
+                  <span class="cat-tag ecom">E-Commerce</span>
+                  <span class="sec-tag">DTC Brand</span>
+                </div>
+                <div class="heart-btn">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 13C8 13 1.5 9 1.5 5.5C1.5 3.5 3 2 5 2C6.2 2 7.3 2.7 8 3.7C8.7 2.7 9.8 2 11 2C13 2 14.5 3.5 14.5 5.5C14.5 9 8 13 8 13Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+                </div>
+              </div>
+              <div class="visual-bottom">
+                <div class="biz-name">Alpine Outfitters Co.</div>
+                <div class="biz-sub">4 years operating · Colorado, USA</div>
+              </div>
             </div>
-            <button class="heart-btn" onclick="toggleHeart(this,event)">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 13C8 13 1.5 9 1.5 5.5C1.5 3.5 3 2 5 2C6.2 2 7.3 2.7 8 3.7C8.7 2.7 9.8 2 11 2C13 2 14.5 3.5 14.5 5.5C14.5 9 8 13 8 13Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-            </button>
+            <div class="card-body">
+              <div class="price-row">
+                <span class="price-label">Asking</span>
+                <span class="price-value num">$348,000</span>
+                <span class="price-multiple">3.1× SDE</span>
+              </div>
+              <div class="biz-desc">Premium outdoor lifestyle brand, DTC model, strong repeat purchase rate with low CAC and established supplier relationships.</div>
+              <div class="metrics">
+                <div class="metric-box">
+                  <div class="metric-label">Mo. Rev</div>
+                  <div class="metric-val num">$38.4K</div>
+                </div>
+                <div class="metric-box">
+                  <div class="metric-label">Net Margin</div>
+                  <div class="metric-val up num">31%</div>
+                </div>
+                <div class="metric-box">
+                  <div class="metric-label">Yrs Running</div>
+                  <div class="metric-val num">4</div>
+                </div>
+              </div>
+              <div class="trend-bar">
+                <div class="trend-header">
+                  <span class="trend-label">Revenue trend (12 months)</span>
+                  <span class="trend-pct">+18%</span>
+                </div>
+                <div class="trend-track"><div class="trend-fill" style="width:72%;"></div></div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span class="view-dot"></span>
+              <span class="view-info">7 viewing now</span>
+              <span class="listed-txt">· 3 days ago</span>
+              <span class="footer-spacer"></span>
+              <span class="qual-tag verified">Verified</span>
+              <div class="cta-btn">View <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6H10M7 3L10 6L7 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
           </div>
-          <div class="visual-bottom">
-            <div class="biz-name">Meridian Paid Media</div>
-            <div class="biz-sub">22 retainer clients · Owner works 15hr/wk</div>
+          <div class="lock-overlay">
+            <svg class="lock-icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <rect x="7" y="15" width="18" height="13" rx="3" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M11 15V11C11 8.24 13.24 6 16 6C18.76 6 21 8.24 21 11V15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              <circle cx="16" cy="21" r="2" fill="currentColor" opacity="0.6"/>
+            </svg>
+            <p class="lock-overlay-text">Join the waitlist to unlock all deals at launch</p>
+            <button class="lock-access-btn" onclick="event.stopPropagation(); openLockModal()">Get Access</button>
           </div>
         </div>
-        <div class="card-body">
-          <div class="price-row">
-            <span class="price-label">Asking</span>
-            <span class="price-value num">$520,000</span>
-            <span class="price-multiple">2.4× SDE</span>
+
+        <!-- LOCKED CARD 2: Invoxa Invoicing — SaaS -->
+        <div class="locked-card-wrap" onclick="openLockModal()">
+          <div class="card saas">
+            <div class="card-visual" data-letter="I">
+              <div class="visual-top">
+                <div class="tag-group">
+                  <span class="cat-tag saas">SaaS</span>
+                  <span class="sec-tag">B2B · Invoicing</span>
+                </div>
+                <div class="heart-btn">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 13C8 13 1.5 9 1.5 5.5C1.5 3.5 3 2 5 2C6.2 2 7.3 2.7 8 3.7C8.7 2.7 9.8 2 11 2C13 2 14.5 3.5 14.5 5.5C14.5 9 8 13 8 13Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+                </div>
+              </div>
+              <div class="visual-bottom">
+                <div class="biz-name">Invoxa Invoicing</div>
+                <div class="biz-sub">2.5 yrs operating · Fully automated</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="price-row">
+                <span class="price-label">Asking</span>
+                <span class="price-value num">$685,000</span>
+                <span class="price-multiple">2.5× ARR</span>
+              </div>
+              <div class="biz-desc">B2B invoicing SaaS with strong net revenue retention. High margin, low churn, and a clean codebase ready for the next operator.</div>
+              <div class="metrics">
+                <div class="metric-box">
+                  <div class="metric-label">MRR</div>
+                  <div class="metric-val num">$22.8K</div>
+                </div>
+                <div class="metric-box">
+                  <div class="metric-label">Net Margin</div>
+                  <div class="metric-val up num">67%</div>
+                </div>
+                <div class="metric-box">
+                  <div class="metric-label">Multiple</div>
+                  <div class="metric-val num">2.5× ARR</div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span class="view-dot"></span>
+              <span class="view-info">14 viewing now</span>
+              <span class="listed-txt">· 1 day ago</span>
+              <span class="footer-spacer"></span>
+              <span class="qual-tag sba">SBA Eligible</span>
+              <div class="cta-btn">View <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6H10M7 3L10 6L7 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
           </div>
-          <div class="biz-desc">8-person paid media agency. Zero client concentration risk. Decade-long anchor relationships. Owner has delegated all execution — BD only.</div>
-          <div class="metrics">
-            <div class="metric-box">
-              <div class="metric-label">Annual Rev</div>
-              <div class="metric-val num">$1.04M</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-label">SDE</div>
-              <div class="metric-val num">$218K</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-label">Retention</div>
-              <div class="metric-val up num">91%</div>
-            </div>
-          </div>
-          <div class="trend-bar">
-            <div class="trend-header">
-              <span class="trend-label">Client retention rate</span>
-              <span class="trend-pct">91%</span>
-            </div>
-            <div class="trend-track"><div class="trend-fill" style="width:91%;"></div></div>
+          <div class="lock-overlay">
+            <svg class="lock-icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <rect x="7" y="15" width="18" height="13" rx="3" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M11 15V11C11 8.24 13.24 6 16 6C18.76 6 21 8.24 21 11V15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              <circle cx="16" cy="21" r="2" fill="currentColor" opacity="0.6"/>
+            </svg>
+            <p class="lock-overlay-text">Join the waitlist to unlock all deals at launch</p>
+            <button class="lock-access-btn" onclick="event.stopPropagation(); openLockModal()">Get Access</button>
           </div>
         </div>
-        <div class="card-footer">
-          <span class="view-dot"></span>
-          <span class="view-info">4 viewing now</span>
-          <span class="listed-txt">· 6 days ago</span>
-          <span class="footer-spacer"></span>
-          <span class="qual-tag motivated">Motivated</span>
-          <div class="cta-btn">View <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6H10M7 3L10 6L7 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+        <!-- LOCKED CARD 3: Helio Creative Group — Agency -->
+        <div class="locked-card-wrap" onclick="openLockModal()">
+          <div class="card agency">
+            <div class="card-visual" data-letter="H">
+              <div class="visual-top">
+                <div class="tag-group">
+                  <span class="cat-tag agency">Agency</span>
+                  <span class="sec-tag">Creative</span>
+                </div>
+                <div class="heart-btn">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 13C8 13 1.5 9 1.5 5.5C1.5 3.5 3 2 5 2C6.2 2 7.3 2.7 8 3.7C8.7 2.7 9.8 2 11 2C13 2 14.5 3.5 14.5 5.5C14.5 9 8 13 8 13Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+                </div>
+              </div>
+              <div class="visual-bottom">
+                <div class="biz-name">Helio Creative Group</div>
+                <div class="biz-sub">Motivated seller · Strong pipeline</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="price-row">
+                <span class="price-label">Asking</span>
+                <span class="price-value num">$975,000</span>
+                <span class="price-multiple">2.8× SDE</span>
+              </div>
+              <div class="biz-desc">Full-service creative agency with strong retainer base. Motivated seller. Established brand with talented team in place and a healthy client pipeline.</div>
+              <div class="metrics">
+                <div class="metric-box">
+                  <div class="metric-label">Mo. Rev</div>
+                  <div class="metric-val num">$54.2K</div>
+                </div>
+                <div class="metric-box">
+                  <div class="metric-label">Net Margin</div>
+                  <div class="metric-val up num">58%</div>
+                </div>
+                <div class="metric-box">
+                  <div class="metric-label">Seller</div>
+                  <div class="metric-val warn">Motivated</div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span class="view-dot"></span>
+              <span class="view-info">9 viewing now</span>
+              <span class="listed-txt">· 2 days ago</span>
+              <span class="footer-spacer"></span>
+              <span class="qual-tag motivated">Motivated</span>
+              <div class="cta-btn">View <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6H10M7 3L10 6L7 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+          </div>
+          <div class="lock-overlay">
+            <svg class="lock-icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <rect x="7" y="15" width="18" height="13" rx="3" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M11 15V11C11 8.24 13.24 6 16 6C18.76 6 21 8.24 21 11V15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              <circle cx="16" cy="21" r="2" fill="currentColor" opacity="0.6"/>
+            </svg>
+            <p class="lock-overlay-text">Join the waitlist to unlock all deals at launch</p>
+            <button class="lock-access-btn" onclick="event.stopPropagation(); openLockModal()">Get Access</button>
+          </div>
         </div>
+
+      </div><!-- /locked-cards-grid -->
+    </div><!-- /locked-deals-section -->
+
+    <!-- ─── APP PREVIEW ─── -->
+    <div class="app-preview-section">
+      <div class="section-inner" style="padding-bottom: 32px;">
+        <div class="section-label">APP PREVIEW</div>
+        <div class="section-title">Built for How You Invest</div>
+        <div class="section-subtitle">Browse, analyze, and manage acquisitions from your phone. Available at launch on the App Store.</div>
       </div>
 
-      <!-- CARD 4: Compound Weekly — Content -->
-      <div class="card content">
-        <div class="card-visual" data-letter="C">
-          <div class="visual-top">
-            <div class="tag-group">
-              <span class="cat-tag content">Content</span>
-              <span class="sec-tag">Newsletter</span>
+      <div class="phones-container">
+
+        <!-- Dark Mode Phone -->
+        <div class="phone-wrap">
+          <div class="phone-frame phone-dark">
+            <div class="phone-inner">
+              <div class="phone-notch-bar">
+                <div class="phone-notch"></div>
+              </div>
+              <div class="mini-ph-topbar">
+                <span class="mini-ph-logo">MAGNATE</span>
+                <div class="mini-ph-dots">
+                  <div class="mini-ph-dot" style="width:18px; height:18px; border-radius:50%;"></div>
+                </div>
+              </div>
+              <div class="mini-ph-greeting">Good morning, Jordan</div>
+              <div class="mini-ph-pills">
+                <span class="mini-ph-pill active">For You</span>
+                <span class="mini-ph-pill">All Deals</span>
+              </div>
+              <div class="mini-ph-cards">
+                <div class="mini-ph-card ecom">
+                  <div class="mini-ph-visual">
+                    <span class="mini-ph-cat">E-Commerce</span>
+                    <span class="mini-ph-name">Alpine Outfitters Co.</span>
+                  </div>
+                  <div class="mini-ph-body" style="background:#0A1812;">
+                    <div class="mini-ph-price">$348,000</div>
+                    <div class="mini-ph-metrics">
+                      <div class="mini-ph-metric">
+                        <div class="mini-ph-mlabel">MO.REV</div>
+                        <div class="mini-ph-mval">$38.4K</div>
+                      </div>
+                      <div class="mini-ph-metric">
+                        <div class="mini-ph-mlabel">MARGIN</div>
+                        <div class="mini-ph-mval" style="color:#1F7A5C;">31%</div>
+                      </div>
+                      <div class="mini-ph-metric">
+                        <div class="mini-ph-mlabel">YRS</div>
+                        <div class="mini-ph-mval">4</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mini-ph-card saas">
+                  <div class="mini-ph-visual">
+                    <span class="mini-ph-cat">SaaS</span>
+                    <span class="mini-ph-name">Invoxa Invoicing</span>
+                  </div>
+                  <div class="mini-ph-body" style="background:#0A0F1C;">
+                    <div class="mini-ph-price">$685,000</div>
+                    <div class="mini-ph-metrics">
+                      <div class="mini-ph-metric">
+                        <div class="mini-ph-mlabel">MRR</div>
+                        <div class="mini-ph-mval">$22.8K</div>
+                      </div>
+                      <div class="mini-ph-metric">
+                        <div class="mini-ph-mlabel">MARGIN</div>
+                        <div class="mini-ph-mval" style="color:#1F7A5C;">67%</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <button class="heart-btn" onclick="toggleHeart(this,event)">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 13C8 13 1.5 9 1.5 5.5C1.5 3.5 3 2 5 2C6.2 2 7.3 2.7 8 3.7C8.7 2.7 9.8 2 11 2C13 2 14.5 3.5 14.5 5.5C14.5 9 8 13 8 13Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-            </button>
           </div>
-          <div class="visual-bottom">
-            <div class="biz-name">Compound Weekly</div>
-            <div class="biz-sub">68K subscribers · 44% open rate</div>
+          <span class="phone-caption">Dark Mode</span>
+        </div>
+
+        <!-- Light Mode Phone -->
+        <div class="phone-wrap">
+          <div class="phone-frame phone-light">
+            <div class="phone-inner">
+              <div class="phone-notch-bar">
+                <div class="phone-notch"></div>
+              </div>
+              <div class="mini-ph-topbar">
+                <span class="mini-ph-logo">MAGNATE</span>
+                <div class="mini-ph-dots">
+                  <div class="mini-ph-dot" style="width:18px; height:18px; border-radius:50%;"></div>
+                </div>
+              </div>
+              <div class="mini-ph-greeting">Good morning, Jordan</div>
+              <div class="mini-ph-pills">
+                <span class="mini-ph-pill active">For You</span>
+                <span class="mini-ph-pill">All Deals</span>
+              </div>
+              <div class="mini-ph-cards">
+                <div class="mini-ph-card ecom">
+                  <div class="mini-ph-visual">
+                    <span class="mini-ph-cat">E-Commerce</span>
+                    <span class="mini-ph-name">Alpine Outfitters Co.</span>
+                  </div>
+                  <div class="mini-ph-body" style="background:#F0FAF5;">
+                    <div class="mini-ph-price" style="color:#0E0E0F;">$348,000</div>
+                    <div class="mini-ph-metrics">
+                      <div class="mini-ph-metric" style="background:rgba(0,0,0,0.05); border-color:#E2E2DF;">
+                        <div class="mini-ph-mlabel">MO.REV</div>
+                        <div class="mini-ph-mval" style="color:#0E0E0F;">$38.4K</div>
+                      </div>
+                      <div class="mini-ph-metric" style="background:rgba(0,0,0,0.05); border-color:#E2E2DF;">
+                        <div class="mini-ph-mlabel">MARGIN</div>
+                        <div class="mini-ph-mval" style="color:#1F7A5C;">31%</div>
+                      </div>
+                      <div class="mini-ph-metric" style="background:rgba(0,0,0,0.05); border-color:#E2E2DF;">
+                        <div class="mini-ph-mlabel">YRS</div>
+                        <div class="mini-ph-mval" style="color:#0E0E0F;">4</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mini-ph-card saas">
+                  <div class="mini-ph-visual">
+                    <span class="mini-ph-cat">SaaS</span>
+                    <span class="mini-ph-name">Invoxa Invoicing</span>
+                  </div>
+                  <div class="mini-ph-body" style="background:#EEF2FF;">
+                    <div class="mini-ph-price" style="color:#0E0E0F;">$685,000</div>
+                    <div class="mini-ph-metrics">
+                      <div class="mini-ph-metric" style="background:rgba(0,0,0,0.05); border-color:#E2E2DF;">
+                        <div class="mini-ph-mlabel">MRR</div>
+                        <div class="mini-ph-mval" style="color:#0E0E0F;">$22.8K</div>
+                      </div>
+                      <div class="mini-ph-metric" style="background:rgba(0,0,0,0.05); border-color:#E2E2DF;">
+                        <div class="mini-ph-mlabel">MARGIN</div>
+                        <div class="mini-ph-mval" style="color:#1F7A5C;">67%</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <span class="phone-caption">Light Mode</span>
+        </div>
+
+      </div><!-- /phones-container -->
+    </div><!-- /app-preview-section -->
+
+    <!-- ─── HOW IT WORKS ─── -->
+    <div class="hiw-section" id="how-it-works">
+      <div class="section-inner">
+        <div class="section-label">HOW IT WORKS</div>
+        <div class="section-title">Simple from First Look to Close</div>
+        <div class="section-subtitle" style="margin-bottom: 36px;">Whether you're buying or selling, Magnate makes it fast.</div>
+
+        <div class="hiw-grid">
+          <!-- Buyers -->
+          <div class="hiw-col">
+            <div class="hiw-role-label">For Buyers</div>
+            <div class="hiw-steps">
+              <div class="hiw-step">
+                <div class="hiw-step-num">01</div>
+                <div class="hiw-step-content">
+                  <div class="hiw-step-title">Join the Waitlist</div>
+                  <div class="hiw-step-desc">Get early access and your first 3 months completely free when we launch on the App Store.</div>
+                </div>
+              </div>
+              <div class="hiw-step">
+                <div class="hiw-step-num">02</div>
+                <div class="hiw-step-content">
+                  <div class="hiw-step-title">Browse Verified Deals</div>
+                  <div class="hiw-step-desc">Filter by category, revenue, and asking price. AI surfaces deals matched to your acquisition profile.</div>
+                </div>
+              </div>
+              <div class="hiw-step">
+                <div class="hiw-step-num">03</div>
+                <div class="hiw-step-content">
+                  <div class="hiw-step-title">Make Your Move</div>
+                  <div class="hiw-step-desc">Reach out to sellers directly through the app. Go from browse to offer in minutes, not weeks.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sellers -->
+          <div class="hiw-col">
+            <div class="hiw-role-label">For Sellers</div>
+            <div class="hiw-steps">
+              <div class="hiw-step">
+                <div class="hiw-step-num">01</div>
+                <div class="hiw-step-content">
+                  <div class="hiw-step-title">List Your Business</div>
+                  <div class="hiw-step-desc">Tell us about your business and set your asking price. The listing process takes under 10 minutes.</div>
+                </div>
+              </div>
+              <div class="hiw-step">
+                <div class="hiw-step-num">02</div>
+                <div class="hiw-step-content">
+                  <div class="hiw-step-title">Get Matched to Buyers</div>
+                  <div class="hiw-step-desc">Our AI connects your listing with qualified buyers who match your deal criteria and can move fast.</div>
+                </div>
+              </div>
+              <div class="hiw-step">
+                <div class="hiw-step-num">03</div>
+                <div class="hiw-step-content">
+                  <div class="hiw-step-title">Close the Deal</div>
+                  <div class="hiw-step-desc">Manage every step from LOI to close, all within the Magnate platform. No brokers, no friction.</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="card-body">
-          <div class="price-row">
-            <span class="price-label">Asking</span>
-            <span class="price-value num">$112,000</span>
-            <span class="price-multiple">2.2× SDE</span>
-          </div>
-          <div class="biz-desc">Finance newsletter for young professionals. Monetized via sponsorships + digital courses. Under 4 hours per week to operate after handoff.</div>
-          <div class="metrics">
-            <div class="metric-box">
-              <div class="metric-label">Subscribers</div>
-              <div class="metric-val num">68K</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-label">Open Rate</div>
-              <div class="metric-val up num">44%</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-label">Monthly SDE</div>
-              <div class="metric-val num">$4.2K</div>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="view-dot"></span>
-          <span class="view-info">9 viewing now</span>
-          <span class="listed-txt">· Today</span>
-          <span class="footer-spacer"></span>
-          <span class="qual-tag verified">Verified</span>
-          <div class="cta-btn">View <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6H10M7 3L10 6L7 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+        <div class="hiw-cta">
+          <a href="buyer-form.html" class="hiw-cta-link">Join the Waitlist — It's Free</a>
         </div>
       </div>
+    </div>
 
-      <!-- CARD 5: NestCraft — FBA -->
-      <div class="card fba">
-        <div class="card-visual" data-letter="N">
-          <div class="visual-top">
-            <div class="tag-group">
-              <span class="cat-tag fba">Amazon FBA</span>
-              <span class="sec-tag">Home & Kitchen</span>
-            </div>
-            <button class="heart-btn" onclick="toggleHeart(this,event)">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 13C8 13 1.5 9 1.5 5.5C1.5 3.5 3 2 5 2C6.2 2 7.3 2.7 8 3.7C8.7 2.7 9.8 2 11 2C13 2 14.5 3.5 14.5 5.5C14.5 9 8 13 8 13Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-            </button>
+    <!-- ─── FOOTER ─── -->
+    <footer class="site-footer">
+      <div class="section-inner">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <div class="footer-brand-name">MAGNATE</div>
+            <div class="footer-brand-tag">The deal marketplace for serious operators. Built for acquirers who move fast.</div>
           </div>
-          <div class="visual-bottom">
-            <div class="biz-name">NestCraft Organics</div>
-            <div class="biz-sub">3 SKUs · Amazon Choice · 4.7★ avg</div>
+          <div class="footer-links">
+            <div class="footer-col">
+              <span class="footer-col-label">Platform</span>
+              <a href="how-it-works.html">How It Works</a>
+              <a href="pricing.html">Pricing</a>
+              <a href="buyer-form.html">Browse Deals</a>
+              <a href="seller-form.html">List a Business</a>
+            </div>
+            <div class="footer-col">
+              <span class="footer-col-label">Legal</span>
+              <a href="#">Privacy Policy</a>
+              <a href="#">Terms of Service</a>
+            </div>
           </div>
         </div>
-        <div class="card-body">
-          <div class="price-row">
-            <span class="price-label">Asking</span>
-            <span class="price-value num">$224,000</span>
-            <span class="price-multiple">2.8× SDE</span>
-          </div>
-          <div class="biz-desc">Bamboo kitchen organizer brand. 1,200+ reviews across 3 SKUs with Amazon Choice badges. Zero-touch fulfillment, 2 vetted factories, no inventory risk.</div>
-          <div class="metrics">
-            <div class="metric-box">
-              <div class="metric-label">Monthly Rev</div>
-              <div class="metric-val num">$22.1K</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-label">Margin</div>
-              <div class="metric-val up num">38%</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-label">YoY Growth</div>
-              <div class="metric-val num">+24%</div>
-            </div>
-          </div>
-          <div class="trend-bar">
-            <div class="trend-header">
-              <span class="trend-label">YoY revenue growth</span>
-              <span class="trend-pct">+24%</span>
-            </div>
-            <div class="trend-track"><div class="trend-fill" style="width:60%;"></div></div>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="view-dot"></span>
-          <span class="view-info">5 viewing now</span>
-          <span class="listed-txt">· 2 days ago</span>
-          <span class="footer-spacer"></span>
-          <span class="qual-tag sba">SBA Eligible</span>
-          <div class="cta-btn">View <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6H10M7 3L10 6L7 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="footer-bottom">
+          <span>© 2026 Magnate. All rights reserved.</span>
+          <span>App Store launch coming soon.</span>
         </div>
       </div>
+    </footer>
 
-      <!-- CARD 6: PawComfort — Dropshipping -->
-      <div class="card drop">
-        <div class="card-visual" data-letter="P">
-          <div class="visual-top">
-            <div class="tag-group">
-              <span class="cat-tag drop">Dropshipping</span>
-              <span class="sec-tag">Pet Niche</span>
-            </div>
-            <button class="heart-btn" onclick="toggleHeart(this,event)">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 13C8 13 1.5 9 1.5 5.5C1.5 3.5 3 2 5 2C6.2 2 7.3 2.7 8 3.7C8.7 2.7 9.8 2 11 2C13 2 14.5 3.5 14.5 5.5C14.5 9 8 13 8 13Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-            </button>
-          </div>
-          <div class="visual-bottom">
-            <div class="biz-name">PawComfort Direct</div>
-            <div class="biz-sub">4.5 years operating · Fully automated</div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="price-row">
-            <span class="price-label">Asking</span>
-            <span class="price-value num">$138,000</span>
-            <span class="price-multiple">1.4× Rev</span>
-          </div>
-          <div class="biz-desc">Premium pet accessories store, fully automated with AutoDS. Established Meta ad funnels delivering consistent $8K–11K/mo net profit for 18 months straight.</div>
-          <div class="metrics">
-            <div class="metric-box">
-              <div class="metric-label">Monthly Rev</div>
-              <div class="metric-val num">$31.2K</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-label">Net Profit</div>
-              <div class="metric-val up num">$9.4K</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-label">ROAS</div>
-              <div class="metric-val num">3.8×</div>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="view-dot"></span>
-          <span class="view-info">3 viewing now</span>
-          <span class="listed-txt">· 8 days ago</span>
-          <span class="footer-spacer"></span>
-          <span class="qual-tag motivated">Motivated</span>
-          <div class="cta-btn">View <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6H10M7 3L10 6L7 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        </div>
-      </div>
-
-      <!-- CARD 7: TabSync Pro — SaaS (small) -->
-      <div class="card saas">
-        <div class="card-visual" data-letter="T">
-          <div class="visual-top">
-            <div class="tag-group">
-              <span class="cat-tag saas">SaaS</span>
-              <span class="sec-tag">Chrome Extension</span>
-            </div>
-            <button class="heart-btn saved" onclick="toggleHeart(this,event)">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 13C8 13 1.5 9 1.5 5.5C1.5 3.5 3 2 5 2C6.2 2 7.3 2.7 8 3.7C8.7 2.7 9.8 2 11 2C13 2 14.5 3.5 14.5 5.5C14.5 9 8 13 8 13Z"/></svg>
-            </button>
-          </div>
-          <div class="visual-bottom">
-            <div class="biz-name">TabSync Pro</div>
-            <div class="biz-sub">14,000 active users · Zero support overhead</div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="price-row">
-            <span class="price-label">Asking</span>
-            <span class="price-value num">$68,000</span>
-            <span class="price-multiple">2.6× ARR</span>
-          </div>
-          <div class="biz-desc">Productivity Chrome extension, freemium model. Clean codebase ready for immediate transfer. $2.2K MRR with zero ongoing costs except one API subscription.</div>
-          <div class="metrics">
-            <div class="metric-box">
-              <div class="metric-label">MRR</div>
-              <div class="metric-val num">$2,200</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-label">Users</div>
-              <div class="metric-val num">14K</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-label">Conversion</div>
-              <div class="metric-val up num">4.8%</div>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="view-dot"></span>
-          <span class="view-info">11 viewing now</span>
-          <span class="listed-txt">· Today</span>
-          <span class="footer-spacer"></span>
-          <span class="qual-tag verified">Verified</span>
-          <div class="cta-btn">View <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6H10M7 3L10 6L7 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        </div>
-      </div>
-
-      <!-- CARD 8: Cedar & Rye — Subscription ecom -->
-      <div class="card ecom">
-        <div class="card-visual" data-letter="C">
-          <div class="visual-top">
-            <div class="tag-group">
-              <span class="cat-tag ecom">E-Commerce</span>
-              <span class="sec-tag">Subscription Box</span>
-            </div>
-            <button class="heart-btn" onclick="toggleHeart(this,event)">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 13C8 13 1.5 9 1.5 5.5C1.5 3.5 3 2 5 2C6.2 2 7.3 2.7 8 3.7C8.7 2.7 9.8 2 11 2C13 2 14.5 3.5 14.5 5.5C14.5 9 8 13 8 13Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-            </button>
-          </div>
-          <div class="visual-bottom">
-            <div class="biz-name">Cedar & Rye Co.</div>
-            <div class="biz-sub">1,840 subscribers · Proprietary formulas</div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="price-row">
-            <span class="price-label">Asking</span>
-            <span class="price-value num">$265,000</span>
-            <span class="price-multiple">2.9× SDE</span>
-          </div>
-          <div class="biz-desc">Men's grooming subscription box. 82% annual retention, profitable since month 6. Proprietary formulas create a moat. Strong brand loyalty, low refund rate.</div>
-          <div class="metrics">
-            <div class="metric-box">
-              <div class="metric-label">MRR</div>
-              <div class="metric-val num">$36.8K</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-label">Retention</div>
-              <div class="metric-val up num">82%</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-label">LTV</div>
-              <div class="metric-val num">$284</div>
-            </div>
-          </div>
-          <div class="trend-bar">
-            <div class="trend-header">
-              <span class="trend-label">Subscriber growth</span>
-              <span class="trend-pct">+31%</span>
-            </div>
-            <div class="trend-track"><div class="trend-fill" style="width:78%;"></div></div>
-          </div>
-        </div>
-        <div class="card-footer">
-          <span class="view-dot"></span>
-          <span class="view-info">6 viewing now</span>
-          <span class="listed-txt">· 4 days ago</span>
-          <span class="footer-spacer"></span>
-          <span class="qual-tag sba">SBA Eligible</span>
-          <div class="cta-btn">View <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6H10M7 3L10 6L7 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        </div>
-      </div>
-
-      <!-- Load More -->
-      <div class="load-more">
-        <button class="load-more-btn">
-          Load More Deals
-          <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M7 2V12M2 7L7 12L12 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-      </div>
-
-    </div><!-- /card-feed -->
   </div><!-- /feed-scroll -->
 
   <!-- ════════════════════════════
        BOTTOM TAB BAR
   ════════════════════════════ -->
   <nav id="bottom-nav">
-    <div class="nav-tab active">
+    <div class="nav-tab active" onclick="document.getElementById('feed-scroll').scrollTo({top:0,behavior:'smooth'})">
       <svg viewBox="0 0 22 22" fill="none">
         <rect x="2" y="2" width="8" height="8" rx="2" fill="currentColor"/>
         <rect x="12" y="2" width="8" height="8" rx="2" fill="currentColor"/>
@@ -1225,27 +1717,26 @@
       </svg>
       Discover
     </div>
-    <div class="nav-tab">
+    <div class="nav-tab" id="search-nav-btn">
       <svg viewBox="0 0 22 22" fill="none">
         <circle cx="11" cy="10" r="6" stroke="currentColor" stroke-width="1.8"/>
         <path d="M15.5 15.5L19 19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
       </svg>
       Search
     </div>
-    <div class="nav-tab" style="position:relative;">
+    <div class="nav-tab" onclick="openLockModal()">
       <svg viewBox="0 0 22 22" fill="none">
         <path d="M11 2L13.5 7.5H19.5L14.5 11.5L16.5 17.5L11 14L5.5 17.5L7.5 11.5L2.5 7.5H8.5L11 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
       </svg>
-      <span class="nav-badge">4</span>
       Saved
     </div>
-    <div class="nav-tab">
+    <div class="nav-tab" onclick="window.location.href='seller-form.html'">
       <svg viewBox="0 0 22 22" fill="none">
         <path d="M11 2V20M2 11H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
       </svg>
       Sell
     </div>
-    <div class="nav-tab">
+    <div class="nav-tab" onclick="openSigninModal()">
       <svg viewBox="0 0 22 22" fill="none">
         <circle cx="11" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/>
         <path d="M3 20C3 16.7 6.6 14 11 14C15.4 14 19 16.7 19 20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
@@ -1254,7 +1745,36 @@
     </div>
   </nav>
 
-  <!-- Search Overlay -->
+  <!-- ════════════════════════════
+       LOCK MODAL
+  ════════════════════════════ -->
+  <div id="lock-modal" class="modal-overlay" onclick="closeLockModal(event)">
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      <div class="modal-title">Unlock All Deals at Launch</div>
+      <p class="modal-body">Join the waitlist and get first access to every listing when Magnate goes live. 3 months completely free.</p>
+      <a href="buyer-form.html" class="btn-hero-primary" style="margin-bottom:0;">I Want to Buy a Business</a>
+      <a href="seller-form.html" class="btn-modal-outline">I Want to List My Business</a>
+      <button class="btn-modal-dismiss" onclick="closeLockModal()">Not right now</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════
+       SIGN IN MODAL
+  ════════════════════════════ -->
+  <div id="signin-modal" class="modal-overlay" onclick="closeSigninModal(event)">
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      <div class="modal-title">Coming at Launch</div>
+      <p class="modal-body">Full accounts open on App Store launch day. Join the waitlist to be first in and get 3 months completely free.</p>
+      <a href="buyer-form.html" class="btn-hero-primary" style="margin-bottom:0;">Join the Waitlist</a>
+      <button class="btn-modal-dismiss" onclick="closeSigninModal()">Not right now</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════
+       SEARCH OVERLAY
+  ════════════════════════════ -->
   <div id="search-overlay">
     <div class="search-bar-wrap">
       <div class="search-input-wrap">
@@ -1285,7 +1805,7 @@
   </div>
 
   <script>
-    // ── Tab switching ──
+    // ── Original JS: Tab switching ──
     document.querySelectorAll('.tab').forEach(tab => {
       tab.addEventListener('click', () => {
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -1293,7 +1813,7 @@
       });
     });
 
-    // ── Filter pills ──
+    // ── Original JS: Filter pills ──
     document.querySelectorAll('.pill').forEach(pill => {
       pill.addEventListener('click', () => {
         document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
@@ -1301,15 +1821,7 @@
       });
     });
 
-    // ── Bottom nav ──
-    document.querySelectorAll('.nav-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-      });
-    });
-
-    // ── Heart toggle ──
+    // ── Original JS: Heart toggle ──
     function toggleHeart(btn, e) {
       e.stopPropagation();
       const saved = btn.classList.toggle('saved');
@@ -1318,15 +1830,106 @@
         : '<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 13C8 13 1.5 9 1.5 5.5C1.5 3.5 3 2 5 2C6.2 2 7.3 2.7 8 3.7C8.7 2.7 9.8 2 11 2C13 2 14.5 3.5 14.5 5.5C14.5 9 8 13 8 13Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>';
     }
 
-    // ── Search overlay ──
-    const overlay = document.getElementById('search-overlay');
+    // ── Original JS: Search overlay ──
+    const searchOverlay = document.getElementById('search-overlay');
     document.getElementById('search-btn').addEventListener('click', () => {
-      overlay.classList.add('open');
+      searchOverlay.classList.add('open');
+      setTimeout(() => document.getElementById('search-input').focus(), 100);
+    });
+    document.getElementById('search-nav-btn').addEventListener('click', () => {
+      searchOverlay.classList.add('open');
       setTimeout(() => document.getElementById('search-input').focus(), 100);
     });
     document.getElementById('search-cancel').addEventListener('click', () => {
-      overlay.classList.remove('open');
+      searchOverlay.classList.remove('open');
     });
+
+    // ── Theme toggle ──
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('magnate-theme', theme);
+      const isDark = theme === 'dark';
+      document.getElementById('theme-icon-moon').style.display = isDark ? 'block' : 'none';
+      document.getElementById('theme-icon-sun').style.display = isDark ? 'none' : 'block';
+      document.getElementById('theme-icon-moon-d').style.display = isDark ? 'block' : 'none';
+      document.getElementById('theme-icon-sun-d').style.display = isDark ? 'none' : 'block';
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+    document.getElementById('theme-toggle-desk').addEventListener('click', toggleTheme);
+
+    // Restore saved theme
+    const savedTheme = localStorage.getItem('magnate-theme') || 'dark';
+    applyTheme(savedTheme);
+
+    // ── Lock modal ──
+    function openLockModal() {
+      document.getElementById('lock-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLockModal(e) {
+      if (!e || e.target === document.getElementById('lock-modal')) {
+        document.getElementById('lock-modal').classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    // ── Sign in modal ──
+    function openSigninModal() {
+      document.getElementById('signin-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeSigninModal(e) {
+      if (!e || e.target === document.getElementById('signin-modal')) {
+        document.getElementById('signin-modal').classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    // ── Supabase waitlist counter ──
+    (async function fetchWaitlistCount() {
+      const SUPABASE_URL = 'https://cdmjdvbjjlshqzsamsy.supabase.co';
+      const SUPABASE_KEY = 'sb_publishable_mMFJA3iNN4nM-1Po0L5YFg_KqimRtlg';
+      const headers = {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'count=exact',
+        'Range': '0-0'
+      };
+      try {
+        const [buyerRes, sellerRes] = await Promise.all([
+          fetch(SUPABASE_URL + '/rest/v1/buyer_waitlist?select=id', { headers }),
+          fetch(SUPABASE_URL + '/rest/v1/seller_waitlist?select=id', { headers })
+        ]);
+        const parseCount = res => {
+          const cr = res.headers.get('content-range') || '';
+          const parts = cr.split('/');
+          return parseInt(parts[1] || '0', 10) || 0;
+        };
+        const total = parseCount(buyerRes) + parseCount(sellerRes);
+        if (total > 0) {
+          document.getElementById('waitlist-count').textContent = total.toLocaleString();
+        }
+      } catch (_) {
+        // fail silently — counter shows '—'
+      }
+    })();
+
+    // ── Bottom nav active state ──
+    document.querySelectorAll('.nav-tab').forEach((tab, i) => {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Keep Discover tab active on scroll-to-top click
+    document.querySelector('.nav-tab').classList.add('active');
   </script>
 
 </body>

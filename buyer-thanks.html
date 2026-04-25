@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>You're On The List — Magnate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    /* ═══════════════════════════════════
+       DESIGN SYSTEM
+    ═══════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #0A0A0A;
+      --bg-card:    #111111;
+      --bg-el:      #161616;
+      --bg-hi:      #1C1C1C;
+      --txt:        #F0F0F0;
+      --txt-2:      #A0A0A0;
+      --muted:      #6B7280;
+      --muted-2:    #3A3A3A;
+      --border:     #1A1A1A;
+      --border-2:   #222222;
+      --accent:     #1F7A5C;
+      --accent-dim: #0D1F18;
+      --warn:       #B45309;
+      --neg:        #9B1C1C;
+    }
+
+    [data-theme="light"] {
+      --bg:         #F8F7F4;
+      --bg-card:    #FFFFFF;
+      --bg-el:      #EFEFEC;
+      --bg-hi:      #E6E6E3;
+      --txt:        #0E0E0F;
+      --txt-2:      #3A3A3A;
+      --muted:      #6B7280;
+      --muted-2:    #9CA3AF;
+      --border:     #E2E2DF;
+      --border-2:   #D0D0CD;
+      --accent:     #1F7A5C;
+      --accent-dim: #E8F5F0;
+      --warn:       #B45309;
+      --neg:        #9B1C1C;
+    }
+
+    html { background: var(--bg); min-height: 100%; }
+    body {
+      margin: 0; background: var(--bg); font-family: 'Inter', sans-serif;
+      color: var(--txt); -webkit-font-smoothing: antialiased;
+      min-height: 100vh; overflow-x: hidden;
+    }
+    html[data-theme="light"] { background: #F8F7F4; }
+    ::-webkit-scrollbar { width: 0; height: 0; }
+
+    /* ═══════════════════════════════════
+       TOPBAR
+    ═══════════════════════════════════ */
+    #topbar {
+      height: 56px; background: var(--bg); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 18px; position: sticky; top: 0; z-index: 200;
+    }
+    .logo { display: flex; align-items: center; gap: 9px; text-decoration: none; }
+    .logo-mark { width: 28px; height: 28px; flex-shrink: 0; }
+    .logo-word {
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px;
+      font-weight: 800; letter-spacing: 0.2em; color: var(--txt);
+    }
+    .icon-btn {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: var(--bg-el); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); cursor: pointer;
+    }
+    .icon-btn:active { opacity: 0.7; }
+    .topbar-center-nav {
+      display: none; align-items: center; gap: 28px;
+      position: absolute; left: 50%; transform: translateX(-50%);
+    }
+    .topbar-center-nav a {
+      font-size: 13px; font-weight: 500; color: var(--muted);
+      text-decoration: none; transition: color 0.15s;
+    }
+    .topbar-center-nav a:hover { color: var(--txt); }
+    .topbar-desktop-cta { display: none; align-items: center; gap: 8px; }
+    .btn-signin-desk {
+      background: transparent; border: 1px solid var(--border-2); color: var(--txt);
+      font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+      padding: 7px 16px; border-radius: 8px; cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .btn-signin-desk:hover { border-color: var(--muted); background: var(--bg-el); }
+    .btn-access-desk {
+      background: var(--accent); color: #fff; font-family: 'Inter', sans-serif;
+      font-size: 13px; font-weight: 700; padding: 7px 16px; border-radius: 8px;
+      text-decoration: none; transition: opacity 0.15s; white-space: nowrap;
+    }
+    .btn-access-desk:hover { opacity: 0.88; }
+    .topbar-mobile-right { display: flex; align-items: center; gap: 8px; }
+
+    @media (min-width: 768px) {
+      #topbar { padding: 0 40px; }
+      .topbar-mobile-right { display: none; }
+      .topbar-center-nav { display: flex; }
+      .topbar-desktop-cta { display: flex; }
+    }
+
+    /* ═══════════════════════════════════
+       PAGE LAYOUT
+    ═══════════════════════════════════ */
+    .page-wrapper { display: flex; flex-direction: column; min-height: calc(100vh - 56px); }
+    @media (min-width: 768px) { .page-wrapper { flex-direction: row; } }
+
+    /* ═══════════════════════════════════
+       LEFT PANEL
+    ═══════════════════════════════════ */
+    .left-panel { display: none; }
+    @media (min-width: 768px) {
+      .left-panel {
+        display: flex; flex-direction: column; width: 40%; flex-shrink: 0;
+        background: var(--bg-el); border-right: 1px solid var(--border);
+        position: sticky; top: 56px; height: calc(100vh - 56px);
+        overflow-y: auto; padding: 56px 48px; justify-content: space-between;
+      }
+    }
+    @media (min-width: 1200px) { .left-panel { padding: 64px 60px; } }
+
+    .left-logo-row { display: flex; align-items: center; gap: 9px; margin-bottom: 48px; }
+    .left-logo-word {
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px;
+      font-weight: 800; letter-spacing: 0.2em; color: var(--txt);
+    }
+    .left-separator { width: 32px; height: 2px; background: #1F7A5C; border-radius: 1px; margin-bottom: 24px; }
+    .left-headline {
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 30px; font-weight: 800;
+      color: var(--txt); line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 14px;
+    }
+    @media (min-width: 1200px) { .left-headline { font-size: 36px; } }
+    .left-sub { font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 36px; }
+    .left-perks { display: flex; flex-direction: column; gap: 22px; }
+    .left-perk { display: flex; align-items: flex-start; gap: 14px; }
+    .left-perk-icon {
+      width: 28px; height: 28px; border-radius: 8px;
+      background: var(--accent-dim); border: 1px solid rgba(31,122,92,0.4);
+      display: flex; align-items: center; justify-content: center;
+      color: #1F7A5C; flex-shrink: 0; margin-top: 1px;
+    }
+    .left-perk-title { font-size: 14px; font-weight: 700; color: var(--txt); margin-bottom: 3px; }
+    .left-perk-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
+    .left-bottom { margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--border); }
+    .left-footnote { font-size: 12px; color: var(--muted-2); line-height: 1.55; }
+
+    /* ═══════════════════════════════════
+       RIGHT PANEL / CONTENT AREA
+    ═══════════════════════════════════ */
+    .right-panel { flex: 1; background: var(--bg); min-height: calc(100vh - 56px); }
+    .content-area {
+      max-width: 520px; margin: 0 auto; padding: 32px 20px 120px;
+    }
+    @media (min-width: 768px) { .content-area { padding: 56px 48px 80px; } }
+    @media (min-width: 1100px) { .content-area { padding: 64px 56px 80px; } }
+
+    /* Back button */
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 500; color: var(--muted);
+      text-decoration: none; margin-bottom: 36px; transition: color 0.15s;
+    }
+    .back-btn:hover { color: var(--txt); }
+
+    /* Success icon */
+    .success-icon { margin-bottom: 24px; }
+
+    /* Headline & sub */
+    .thanks-headline {
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 28px; font-weight: 800;
+      color: var(--txt); line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 10px;
+    }
+    @media (min-width: 768px) { .thanks-headline { font-size: 34px; } }
+    .thanks-sub { font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 28px; }
+
+    /* Spot badge card */
+    .spot-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 22px 24px; margin-bottom: 16px;
+      display: flex; align-items: center; gap: 20px;
+    }
+    .spot-card-left { flex: 1; }
+    .spot-card-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
+    }
+    .spot-card-number {
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 42px;
+      font-weight: 800; color: var(--accent); line-height: 1;
+      font-feature-settings: "tnum" 1; margin-bottom: 4px;
+    }
+    .spot-card-sub { font-size: 12px; color: var(--muted); }
+    .spot-card-badge {
+      background: var(--accent-dim); border: 1px solid rgba(31,122,92,0.35);
+      border-radius: 8px; padding: 6px 12px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+      color: var(--accent); white-space: nowrap; flex-shrink: 0;
+    }
+
+    /* What happens next card */
+    .next-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 22px 24px; margin-bottom: 20px;
+    }
+    .next-card-header {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 20px;
+    }
+    .next-steps { display: flex; flex-direction: column; gap: 18px; }
+    .next-step { display: flex; align-items: flex-start; gap: 14px; }
+    .step-num {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--accent-dim); border: 1px solid rgba(31,122,92,0.4);
+      color: var(--accent); font-size: 11px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-family: 'Inter', sans-serif;
+    }
+    .step-text { font-size: 14px; color: var(--txt-2); line-height: 1.55; padding-top: 3px; }
+
+    /* Share section */
+    .share-section { margin-bottom: 20px; }
+    .share-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
+    }
+    .share-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .share-btn {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      border: 1px solid var(--border-2); color: var(--txt); background: transparent;
+      font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
+      padding: 11px 16px; border-radius: 10px; text-decoration: none;
+      cursor: pointer; transition: border-color 0.15s, background 0.15s;
+    }
+    .share-btn:hover { border-color: var(--muted); background: var(--bg-el); }
+    .share-btn:active { opacity: 0.75; }
+
+    /* Back to home */
+    .btn-back-home {
+      display: block; width: 100%; border: 1px solid var(--accent);
+      color: var(--accent); background: transparent; font-family: 'Inter', sans-serif;
+      font-size: 15px; font-weight: 600; padding: 15px 24px; border-radius: 12px;
+      text-align: center; text-decoration: none; transition: background 0.15s;
+      cursor: pointer;
+    }
+    .btn-back-home:hover { background: var(--accent-dim); }
+
+    /* ═══════════════════════════════════
+       BOTTOM NAV
+    ═══════════════════════════════════ */
+    #bottom-nav {
+      position: fixed; bottom: 0; left: 0; right: 0; height: 64px;
+      background: var(--bg); border-top: 1px solid var(--border);
+      display: flex; align-items: center;
+      padding-bottom: env(safe-area-inset-bottom, 0px); z-index: 100;
+    }
+    @media (min-width: 768px) { #bottom-nav { display: none; } }
+    .nav-tab {
+      flex: 1; display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 4px; cursor: pointer; color: var(--muted-2);
+      font-size: 10px; font-weight: 500; -webkit-tap-highlight-color: transparent; padding-top: 4px;
+    }
+    .nav-tab.active { color: var(--accent); }
+    .nav-tab svg { width: 22px; height: 22px; }
+
+    /* ═══════════════════════════════════
+       TOAST
+    ═══════════════════════════════════ */
+    .toast {
+      position: fixed; bottom: 88px; left: 50%;
+      transform: translateX(-50%) translateY(8px);
+      background: var(--accent); color: #fff;
+      font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
+      padding: 10px 20px; border-radius: 8px;
+      opacity: 0; transition: opacity 0.25s, transform 0.25s;
+      pointer-events: none; z-index: 400; white-space: nowrap;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    @media (min-width: 768px) { .toast { bottom: 32px; } }
+
+    /* ═══════════════════════════════════
+       SIGN-IN MODAL
+    ═══════════════════════════════════ */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.7); z-index: 300;
+      align-items: flex-end; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-sheet {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 20px 20px 0 0;
+      padding: 28px 20px calc(36px + env(safe-area-inset-bottom, 0px));
+      width: 100%; max-width: 500px; display: flex; flex-direction: column; gap: 14px;
+    }
+    @media (min-width: 768px) {
+      .modal-overlay { align-items: center; }
+      .modal-sheet { border-radius: 20px; padding: 40px; max-width: 440px; }
+    }
+    .modal-handle { width: 36px; height: 4px; border-radius: 2px; background: var(--border-2); margin: 0 auto -4px; }
+    @media (min-width: 768px) { .modal-handle { display: none; } }
+    .modal-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 22px; font-weight: 800; color: var(--txt); line-height: 1.2; }
+    .modal-body { font-size: 14px; color: var(--muted); line-height: 1.65; }
+    .btn-modal-primary {
+      display: block; background: var(--accent); color: #fff;
+      font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 700;
+      padding: 14px 20px; border-radius: 12px; text-align: center;
+      text-decoration: none; border: none; cursor: pointer; transition: opacity 0.15s;
+    }
+    .btn-modal-primary:hover { opacity: 0.88; }
+    .btn-modal-dismiss {
+      background: none; border: none; color: var(--muted); font-size: 14px;
+      font-weight: 500; font-family: 'Inter', sans-serif; cursor: pointer;
+      padding: 6px 0; text-align: center; align-self: center; transition: color 0.15s;
+    }
+    .btn-modal-dismiss:hover { color: var(--txt); }
+    [data-theme="light"] .modal-sheet { background: #fff; }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div id="topbar">
+    <a href="index.html" class="logo">
+      <svg class="logo-mark" viewBox="0 0 28 28" fill="none">
+        <rect x="0" y="0" width="12" height="12" rx="3.5" fill="#1F7A5C"/>
+        <rect x="16" y="0" width="12" height="12" rx="3.5" fill="#1F7A5C"/>
+        <rect x="0" y="16" width="12" height="12" rx="3.5" fill="#1F7A5C" opacity="0.45"/>
+        <rect x="16" y="16" width="12" height="12" rx="3.5" fill="#1F7A5C" opacity="0.45"/>
+        <path d="M3.5 9L8 3.5L14 8.5L20 3.5L24.5 9" stroke="#0A0A0A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <span class="logo-word">MAGNATE</span>
+    </a>
+
+    <nav class="topbar-center-nav">
+      <a href="how-it-works.html">How It Works</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="buyer-form.html">Browse Deals</a>
+      <a href="seller-form.html">List a Business</a>
+    </nav>
+
+    <div class="topbar-mobile-right">
+      <div class="icon-btn" id="theme-toggle" title="Toggle theme">
+        <svg id="icon-moon" width="16" height="16" viewBox="0 0 20 20" fill="none">
+          <path d="M17.5 10.9A7.5 7.5 0 019.1 2.5a7.5 7.5 0 100 15 7.5 7.5 0 008.4-6.6z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+        <svg id="icon-sun" width="16" height="16" viewBox="0 0 20 20" fill="none" style="display:none;">
+          <circle cx="10" cy="10" r="4" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.2 4.2l1.4 1.4M14.4 14.4l1.4 1.4M4.2 15.8l1.4-1.4M14.4 5.6l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="topbar-desktop-cta">
+      <div class="icon-btn" id="theme-toggle-desk" title="Toggle theme">
+        <svg id="icon-moon-d" width="16" height="16" viewBox="0 0 20 20" fill="none">
+          <path d="M17.5 10.9A7.5 7.5 0 019.1 2.5a7.5 7.5 0 100 15 7.5 7.5 0 008.4-6.6z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+        <svg id="icon-sun-d" width="16" height="16" viewBox="0 0 20 20" fill="none" style="display:none;">
+          <circle cx="10" cy="10" r="4" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.2 4.2l1.4 1.4M14.4 14.4l1.4 1.4M4.2 15.8l1.4-1.4M14.4 5.6l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <button class="btn-signin-desk" onclick="openSigninModal()">Sign In</button>
+      <a href="buyer-form.html" class="btn-access-desk">Get Early Access</a>
+    </div>
+  </div>
+
+  <!-- PAGE WRAPPER -->
+  <div class="page-wrapper">
+
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+      <div>
+        <div class="left-logo-row">
+          <svg viewBox="0 0 28 28" fill="none" width="28" height="28" style="flex-shrink:0;">
+            <rect x="0" y="0" width="12" height="12" rx="3.5" fill="#1F7A5C"/>
+            <rect x="16" y="0" width="12" height="12" rx="3.5" fill="#1F7A5C"/>
+            <rect x="0" y="16" width="12" height="12" rx="3.5" fill="#1F7A5C" opacity="0.45"/>
+            <rect x="16" y="16" width="12" height="12" rx="3.5" fill="#1F7A5C" opacity="0.45"/>
+            <path d="M3.5 9L8 3.5L14 8.5L20 3.5L24.5 9" stroke="#0A0A0A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+          <span class="left-logo-word">MAGNATE</span>
+        </div>
+
+        <div class="left-separator"></div>
+
+        <div class="left-headline">Welcome to<br/>the Waitlist</div>
+        <p class="left-sub">You are now in line for early access to Magnate. Here is what being a founding buyer means for you.</p>
+
+        <div class="left-perks">
+          <div class="left-perk">
+            <div class="left-perk-icon">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8L6.5 11.5L13 4.5" stroke="#1F7A5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <div class="left-perk-title">First access to every deal</div>
+              <div class="left-perk-desc">Browse every listing the moment Magnate launches on the App Store.</div>
+            </div>
+          </div>
+          <div class="left-perk">
+            <div class="left-perk-icon">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8L6.5 11.5L13 4.5" stroke="#1F7A5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <div class="left-perk-title">3 months of Buyer Access free</div>
+              <div class="left-perk-desc">No card needed. Your free period starts the day we launch.</div>
+            </div>
+          </div>
+          <div class="left-perk">
+            <div class="left-perk-icon">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8L6.5 11.5L13 4.5" stroke="#1F7A5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <div class="left-perk-title">AI matched to your criteria</div>
+              <div class="left-perk-desc">Deals surface based on your budget, type preferences, and timeline.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="left-bottom">
+        <div class="left-footnote">We will email you when the App Store launch goes live. Keep an eye on your inbox.</div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+      <div class="content-area">
+
+        <a href="index.html" class="back-btn">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <path d="M10 3L4 8L10 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Back
+        </a>
+
+        <!-- Success icon -->
+        <div class="success-icon">
+          <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
+            <circle cx="36" cy="36" r="35" stroke="#1F7A5C" stroke-width="2"/>
+            <path d="M22 37L31 46L50 27" stroke="#1F7A5C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <h1 class="thanks-headline">You Are On The List</h1>
+        <p class="thanks-sub">We will email you the moment Magnate launches on the App Store. Your first 3 months are completely on us.</p>
+
+        <!-- Spot badge card -->
+        <div class="spot-card">
+          <div class="spot-card-left">
+            <div class="spot-card-label">BUYER NUMBER</div>
+            <div class="spot-card-number" id="buyer-num">—</div>
+            <div class="spot-card-sub">You are one of the founding buyers</div>
+          </div>
+          <div class="spot-card-badge">FOUNDING BUYER</div>
+        </div>
+
+        <!-- What Happens Next -->
+        <div class="next-card">
+          <div class="next-card-header">WHAT HAPPENS NEXT</div>
+          <div class="next-steps">
+            <div class="next-step">
+              <div class="step-num">1</div>
+              <div class="step-text">Check your email for a confirmation from Magnate</div>
+            </div>
+            <div class="next-step">
+              <div class="step-num">2</div>
+              <div class="step-text">You get first access to deals the moment we launch on the App Store</div>
+            </div>
+            <div class="next-step">
+              <div class="step-num">3</div>
+              <div class="step-text">Your first 3 months of Buyer Access are free — no card needed</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Share -->
+        <div class="share-section">
+          <div class="share-label">HELP US GROW — SHARE MAGNATE</div>
+          <div class="share-btns">
+            <a
+              href="https://twitter.com/intent/tweet?text=I%20just%20joined%20the%20Magnate%20waitlist%20%E2%80%94%20a%20new%20marketplace%20for%20buying%20cashflow%20businesses.%20Get%20early%20access%20and%203%20months%20free%20at%20magnatemarket.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="share-btn"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+              Share on X
+            </a>
+            <button class="share-btn" onclick="copyLink()">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <rect x="5" y="5" width="9" height="9" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M11 5V3a2 2 0 00-2-2H3a2 2 0 00-2 2v6a2 2 0 002 2h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+              Copy Link
+            </button>
+          </div>
+        </div>
+
+        <a href="index.html" class="btn-back-home">Back to Home</a>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <nav id="bottom-nav">
+    <div class="nav-tab active" onclick="window.location.href='index.html'">
+      <svg viewBox="0 0 22 22" fill="none">
+        <rect x="2" y="2" width="8" height="8" rx="2" fill="currentColor"/>
+        <rect x="12" y="2" width="8" height="8" rx="2" fill="currentColor"/>
+        <rect x="2" y="12" width="8" height="8" rx="2" fill="currentColor" opacity="0.4"/>
+        <rect x="12" y="12" width="8" height="8" rx="2" fill="currentColor" opacity="0.4"/>
+      </svg>
+      Discover
+    </div>
+    <div class="nav-tab" onclick="window.location.href='how-it-works.html'">
+      <svg viewBox="0 0 22 22" fill="none">
+        <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M11 7v4l3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      How It Works
+    </div>
+    <div class="nav-tab" onclick="window.location.href='pricing.html'">
+      <svg viewBox="0 0 22 22" fill="none">
+        <path d="M3 6h16M3 11h16M3 16h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      Pricing
+    </div>
+    <div class="nav-tab" onclick="window.location.href='seller-form.html'">
+      <svg viewBox="0 0 22 22" fill="none">
+        <path d="M11 2V20M2 11H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      Sell
+    </div>
+    <div class="nav-tab" onclick="openSigninModal()">
+      <svg viewBox="0 0 22 22" fill="none">
+        <circle cx="11" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M3 20C3 16.7 6.6 14 11 14C15.4 14 19 16.7 19 20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      Profile
+    </div>
+  </nav>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast">Link copied to clipboard</div>
+
+  <!-- SIGN-IN MODAL -->
+  <div id="signin-modal" class="modal-overlay" onclick="closeSigninModal(event)">
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      <div class="modal-title">Coming at Launch</div>
+      <p class="modal-body">Accounts open on App Store launch day. Join the waitlist for 3 months free.</p>
+      <a href="buyer-form.html" class="btn-modal-primary">Join the Waitlist</a>
+      <button class="btn-modal-dismiss" onclick="closeSigninModal()">Not right now</button>
+    </div>
+  </div>
+
+  <script>
+    const SUPABASE_URL = 'https://cdmjdvbjjlshqzsamsy.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_mMFJA3iNN4nM-1Po0L5YFg_KqimRtlg';
+
+    /* ── Theme ── */
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('magnate-theme', theme);
+      const isDark = theme === 'dark';
+      document.getElementById('icon-moon').style.display   = isDark ? 'block' : 'none';
+      document.getElementById('icon-sun').style.display    = isDark ? 'none'  : 'block';
+      document.getElementById('icon-moon-d').style.display = isDark ? 'block' : 'none';
+      document.getElementById('icon-sun-d').style.display  = isDark ? 'none'  : 'block';
+    }
+    function toggleTheme() {
+      applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    }
+    document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+    document.getElementById('theme-toggle-desk').addEventListener('click', toggleTheme);
+    applyTheme(localStorage.getItem('magnate-theme') || 'dark');
+
+    /* ── Modal ── */
+    function openSigninModal() { document.getElementById('signin-modal').classList.add('open'); }
+    function closeSigninModal(e) {
+      if (!e || e.target === document.getElementById('signin-modal')) {
+        document.getElementById('signin-modal').classList.remove('open');
+      }
+    }
+
+    /* ── Toast ── */
+    function showToast() {
+      const t = document.getElementById('toast');
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    /* ── Copy link ── */
+    function copyLink() {
+      const url = 'https://magnatemarket.com';
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(showToast).catch(() => fallbackCopy(url));
+      } else {
+        fallbackCopy(url);
+      }
+    }
+    function fallbackCopy(text) {
+      const el = document.createElement('textarea');
+      el.value = text;
+      el.style.position = 'fixed';
+      el.style.opacity = '0';
+      document.body.appendChild(el);
+      el.focus(); el.select();
+      try { document.execCommand('copy'); showToast(); } catch (_) {}
+      document.body.removeChild(el);
+    }
+
+    /* ── Fetch buyer count ── */
+    (async function() {
+      const headers = {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'count=exact',
+        'Range': '0-0'
+      };
+      try {
+        const res = await fetch(SUPABASE_URL + '/rest/v1/buyer_waitlist?select=id', { headers });
+        const cr = res.headers.get('content-range') || '';
+        const count = parseInt(cr.split('/')[1] || '0', 10);
+        const el = document.getElementById('buyer-num');
+        if (count > 0) {
+          el.textContent = '#' + count.toLocaleString();
+        } else {
+          el.textContent = '#1';
+        }
+      } catch (_) {
+        document.getElementById('buyer-num').textContent = '#1';
+      }
+    })();
+  </script>
+
+</body>
+</html>
